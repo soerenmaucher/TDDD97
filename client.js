@@ -8,11 +8,11 @@ displayView = function() {
 };
 
 // password validation
-function check(input) {
-    if (input.value != document.getElementById("password").value) {
-        input.setCustomValidity("Password Must be Matching.");
+function check(repeatedPassword) {
+    if (repeatedPassword.value != document.getElementById("password").value) {
+        repeatedPassword.setCustomValidity("Passwords don't match.");
     } else {
-        // input is valid -- reset the error message
-        input.setCustomValidity('');
+        // if input is valid, reset the error message
+        repeatedPassword.setCustomValidity('');
     }
 }
