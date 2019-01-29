@@ -31,7 +31,7 @@
                  </div>
               <div class="container" id="signup">
                  <h3> Sign up here </h3>
-                 <form onsubmit="comparepasswords();return false;">
+                 <form onsubmit="comparepasswords(); signup(this);return false;">
                     <div class="row">
                        <label>First name</label>
                        <input  type="text" name="first_name" placeholder="first name" required>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="row">
                        <label>Gender</label>
-                       <select>
+                       <select name="gender">
                           <option value="male">Male</option>
                           <option value="female">Female</option>
                        </select>
@@ -61,11 +61,11 @@
                     </div>
                     <div class="row">
                        <label>Password</label>
-                       <input  type="password" id="password" pattern=".{3,}" placeholder="password" required>
+                       <input  type="password" name="password" pattern=".{3,}" placeholder="password" required>
                     </div>
                     <div class="row">
                        <label>Repeat PSW</label>
-                       <input  type="password" id="passwordConfirmation" pattern=".{3,}" placeholder="password" required>
+                       <input  type="password" name="passwordConfirmation" pattern=".{3,}" placeholder="password" required>
                     </div>
                     <div class="row">
                        <button type="submit">SignUp</button>
