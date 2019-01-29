@@ -26,11 +26,12 @@
                     <div class="row">
                        <button type="submit">Login</button>
                     </div>
-                 </form>
-              </div>
+                    </div>
+                  </form>
+                 </div>
               <div class="container" id="signup">
                  <h3> Sign up here </h3>
-                 <form>
+                 <form onsubmit="comparepasswords();return false;">
                     <div class="row">
                        <label>First name</label>
                        <input  type="text" name="first_name" placeholder="first name" required>
@@ -64,7 +65,7 @@
                     </div>
                     <div class="row">
                        <label>Repeat PSW</label>
-                       <input  type="password" id="passwordConfirmation" pattern=".{3,}" placeholder="password" oninput="check(this);" required>
+                       <input  type="password" id="passwordConfirmation" pattern=".{3,}" placeholder="password" required>
                     </div>
                     <div class="row">
                        <button type="submit">SignUp</button>
@@ -80,5 +81,12 @@
          <h1>You are now logged in</h1>
        </script>
        </div>
+
+       <!--      feedbackArea         -->
+       <div id="feedback">
+          <button  onclick="closefeedback();" id="close">&times;</button>
+          <p id="message"></p>
+       </div>
+
    </body>
 </html>
