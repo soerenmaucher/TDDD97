@@ -3,7 +3,6 @@
 	border: 1px solid black;
 	text-align: center;
 	box-sizing: border-box;
-	padding: 3px;
 }
 
 
@@ -26,17 +25,19 @@
 #login {
 	height: 90px;
 	padding-top: 15px;
+	padding: 3px;
 }
 
 #signup {
 	height: 300px;
 	margin-top: 10px;
+	padding: 3px;
 }
 
 .row {
 	overflow: hidden;
 	width: 100%;
-	padding: 2px;
+	padding-top: 4px;
 }
 
 label {
@@ -64,4 +65,34 @@ select {
 	height: 400px;
 	width: 340px;
 	float: left;
+}
+
+#feedback{
+ position: absolute;
+ height: 200px;
+ width: 300px;
+ background-color: white;
+ z-index: 10;
+ top: 150px;
+ left:50%;
+ transform: translateX(-50%);
+ overflow: hidden;
+ text-align: center;
+ padding: 10px;
+ border: 1px solid #888;
+ display:none;
+}
+
+#close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 15px;
+  font-weight: bold;
+
+}
+#close:hover,
+#close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
