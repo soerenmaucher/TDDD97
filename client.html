@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Twidder</title>
+      <Link href="client.css" type="text/css" rel="stylesheet">
+      <script src="client.js" type="text/javascript"></script>
+      <script src="serverstub.js" type="text/javascript"></script>
+   </head>
+   <body>
+      <!--          VIEWS           -->
+      <!--      welcomeview         -->
+      <div id="welcomecontent">
+        <script type="text/view" id="welcomeview">
+           <img alt="twidder logo" id="welcomeimg" class="container" src="wimage.png">
+           <div  id="wrapper">
+              <div class="container" id="login">
+                 <form>
+                    <div class="row">
+                       <label>Email</label>
+                       <input  type="text" name="email" placeholder="email" required>
+                    </dusiv>
+                    <div class="row">
+                       <label>Password</label>
+                       <input  type="password" name="password" placeholder="password" required>
+                    </div>
+                    <div class="row">
+                       <button type="submit">Login</button>
+                    </div>
+                 </form>
+              </div>
+              <div class="container" id="signup">
+                 <h3> Sign up here </h3>
+                 <form>
+                    <div class="row">
+                       <label>First name</label>
+                       <input  type="text" name="first_name" placeholder="first name" required>
+                    </div>
+                    <div class="row">
+                       <label>Family name</label>
+                       <input  type="text" name="family_name" placeholder="family name" required>
+                    </div>
+                    <div class="row">
+                       <label>Gender</label>
+                       <select>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                       </select>
+                    </div>
+                    <div class="row">
+                       <label>City</label>
+                       <input  type="text" name="city" placeholder="city" required>
+                    </div>
+                    <div class="row">
+                       <label>Country</label>
+                       <input  type="text" name="country" placeholder="country" required>
+                    </div>
+                    <div class="row">
+                       <label>Email</label>
+                       <input  type="text" name="email" placeholder="email" required>
+                    </div>
+                    <div class="row">
+                       <label>Password</label>
+                       <input  type="password" id="password" pattern=".{3,}" placeholder="password" required>
+                    </div>
+                    <div class="row">
+                       <label>Repeat PSW</label>
+                       <input  type="password" id="passwordConfirmation" pattern=".{3,}" placeholder="password" oninput="check(this);" required>
+                    </div>
+                    <div class="row">
+                       <button type="submit">SignUp</button>
+                    </div>
+                 </form>
+              </div>
+           </div>
+         </script>
+       </div>
+       <!--      profileview         -->
+       <div class="profilecontent">
+       <script type="text/view" id="profileview">
+         <h1>You are now logged in</h1>
+       </script>
+       </div>
+   </body>
+</html>
