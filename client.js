@@ -1,10 +1,15 @@
 window.onload = function() {
-    displayView();
+  if(localStorage.getItem("token")){
+    displayView(document.getElementById("profileview"));
+  }
+  else {
+      displayView(document.getElementById("welcomeview"));
+  }
 };
 
-displayView = function() {
+displayView = function(view) {
   // the code required to display a view
-  document.getElementById('welcomecontent').innerHTML = document.getElementById('welcomeview').innerHTML;
+  document.getElementById('pagecontent').innerHTML = view.innerHTML;
 };
 
 // password validation
@@ -58,7 +63,7 @@ function signup(forminput){
       result= serverstub.signUp(newUser);
 
     if (result.success & error_message == ""){
-      //redirect to login etc.
+      feedback("Signup successful");
       }
     else{
       if (!result.success){
@@ -67,4 +72,33 @@ function signup(forminput){
         feedback(error_message);
     }
 
+}
+//signup function
+function signin(forminput){
+
+  if (true) {//validation not done yet!
+    var email = forminput.email.value;
+    var password = forminput.password.value;
+    var returndata= serverstub.signIn(email, password);
+    var token= returndata.data;
+
+    if (returndata.success)  {
+      localStorage.setItem("token", token);
+      displayView(document.getElementById("profileview"));
+    }
+    else{
+      feedback(returndata.message);
+    }
+  }
+
+  else{
+    //feedback
+  }
+
+}
+
+//for now. Will probably be replaced later, but this way we don't have to manually remove token
+function logout(){
+localStorage.removeItem("token");
+location.reload();
 }

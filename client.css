@@ -6,7 +6,7 @@
 }
 
 
-#welcomecontent {
+#pagecontent {
   font-size: 12px;
 	height: 400px;
 	width: 600px;
@@ -45,6 +45,7 @@ label {
 }
 
 input[type=text],
+input[type=email],
 input[type=password] {
 	display: inline-block;
 	border: 1px solid #ccc;
