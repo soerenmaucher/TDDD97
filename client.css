@@ -53,7 +53,7 @@ input[type=password] {
 	width: 150px;
 }
 
-button {
+.button {
 	float: right;
 }
 
@@ -96,4 +96,30 @@ select {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+#changepw{
+top: 50px;
+width:45%;
+height: 180px;
+padding: 3px;
+float: left;
+}
+
+#logout{
+top: 50px;
+width:45%;
+height: 180px;
+padding: 3px;
+float:right;
+}
+
+#account{
+overflow: hidden;
+width:100%;
+}
+
+#logoutbutton{
+	position: relative;
+	top:30px;
 }

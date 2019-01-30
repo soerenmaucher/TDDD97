@@ -7,7 +7,7 @@ window.onload = function() {
   }
 };
 
-displayView = function(view) {
+ function displayView(view) {
   // the code required to display a view
   document.getElementById('pagecontent').innerHTML = view.innerHTML;
 };
@@ -75,7 +75,6 @@ function signup(forminput){
 }
 //signup function
 function signin(forminput){
-
   if (true) {//validation not done yet!
     var email = forminput.email.value;
     var password = forminput.password.value;
@@ -90,15 +89,33 @@ function signin(forminput){
       feedback(returndata.message);
     }
   }
-
   else{
     //feedback
   }
-
 }
 
-//for now. Will probably be replaced later, but this way we don't have to manually remove token
+// logout functionality
 function logout(){
-localStorage.removeItem("token");
-location.reload();
+  var returnobject = serverstub.signOut(localStorage.getItem("token"));
+      localStorage.removeItem("token");//signOut function doesn't remoave token. Otherwise on reload would be loggin back in
+      localStorage.removeItem("email");
+      displayView(document.getElementById("welcomeview"));
+      feedback(returnobject.message);
+}
+
+//change Password
+function changepassword(forminput){
+  var oldpassword = forminput.oldpassword.value;
+  var newpassword = forminput.newpassword.value;
+  var passwordConfirmation= forminput.passwordConfirmation.value;
+  var token = localStorage.getItem("token");
+  var errormessage="";
+
+  if(newpassword == passwordConfirmation){
+    var returnobject = serverstub.changePassword(token, oldpassword, newpassword);
+      feedback(returnobject.message);
+  }
+  else{
+    feedback("Password confirmation and new password are not the same");
+  }
 }
