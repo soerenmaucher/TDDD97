@@ -101,6 +101,8 @@ function signin(forminput){
     if (returndata.success)  {
       localStorage.setItem("token", token);
       displayView(document.getElementById("profileview"));
+      // Open the default tab
+      document.getElementById("defaultOpen").click();
     }
     else{
       feedback(returndata.message);
@@ -135,4 +137,14 @@ function changepassword(forminput){
   else{
     feedback("Password confirmation and new password are not the same");
   }
+}
+
+// postMessage
+function postMessage() {
+  // to be implicated
+}
+
+// updateWall
+function updateWall() {
+  // to be implicated
 }

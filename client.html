@@ -78,15 +78,45 @@
         <button class="tablinks" onclick="openTab(event, 'Browse')">Browse</button>
         <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
       </div>
-      <!--      Home--tab         -->
+      <!-- -------------- Home--tab -------------- -->
       <div id="Home" class="tabcontent">
         <h1>Home</h1>
+
+        <div class="info" id ="userInfo">
+          <div class="line">
+            <lable>First name:</lable><labe class="infoLable" id="displayFirstName"></lable>
+          </div><br>
+          <div class="line">
+            <lable>Family name:</lable><labe class="infoLable" id="displayFamilyName"></lable>
+          </div><br>
+          <div class="line">
+            <lable>Gender:</lable><labe class="infoLable" id="displayGender"></lable>
+          </div><br>
+          <div class="line">
+            <lable>City:</lable><labe class="infoLable" id="displayCity"></lable>
+          </div><br>
+          <div class="line">
+            <lable>Country:</lable><labe class="infoLable" id="displayCountry"></lable>
+          </div><br>
+          <div class="line">
+            <lable>Email:</lable><labe class="infoLable" id="displayEmail"></lable>
+          </div><br>
+        </div>
+
+        <div class="wall" id="userWall">
+          <textarea id="message" placeholder="message"></textarea><br>
+          <button onclick="postMessage()">Send</button>
+          <button onclick="updateWall()">Update</button><br>
+            <div id="messageWall" class="messageWall">
+            </div>
+        </div>
       </div>
-      <!--      Browse--tab         -->
+
+      <!-- -------------- Browse--tab -------------- -->
       <div id="Browse" class="tabcontent">
         <h1>Browse</h1>
       </div>
-      <!--      Account--tab         -->
+      <!-- -------------- Account--tab -------------- -->
       <div id="Account" class="tabcontent">
         <div id= "account" class="container">
           <h2>Account View</h2>
@@ -96,8 +126,7 @@
               <div class="row">
                 <label>Old password</label>
                 <input  type="password" name="oldpassword" pattern=".{5,}" placeholder="password" required>
-              </div>
-              </br> <!-- what is this for? -->
+              </div></br>
               <div class="row">
                 <label>New password</label>
                 <input  type="password" name="newpassword" pattern=".{5,}" placeholder="password" required>
