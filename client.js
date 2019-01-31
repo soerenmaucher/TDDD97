@@ -1,6 +1,8 @@
 window.onload = function() {
   if(localStorage.getItem("token")){
     displayView(document.getElementById("profileview"));
+    // Open the default tab
+    document.getElementById("defaultOpen").click();
   }
   else {
       displayView(document.getElementById("welcomeview"));
@@ -19,6 +21,21 @@ function comparepasswords(password, passwordconfirmation) {
     } else {
         return "";
     }
+}
+
+// openTab function to open tabs on click
+function openTab(evt, section) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(section).style.display = "block";
+  evt.currentTarget.className += " active";
 }
 
 // feedback function
