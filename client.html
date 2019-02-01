@@ -71,54 +71,70 @@
         </div>
       </div>
     </script>
+    <!-- MyInfo ------------->
+    <script type="text/view" id="userInfo">
+    <div class="info, profile">
+      <div class="line">
+        <lable>First name:</lable><lable class="infoLable, displayFirstName"></lable>
+      </div><br>
+      <div class="line">
+        <lable>Family name:</lable><lable class="infoLable, displayFamilyName"></lable>
+      </div><br>
+      <div class="line">
+        <lable>Gender:</lable><lable class="infoLable, displayGender"></lable>
+      </div><br>
+      <div class="line">
+        <lable>City:</lable><lable class="infoLable, displayCity"></lable>
+      </div><br>
+      <div class="line">
+        <lable>Country:</lable><lable class="infoLable, displayCountry"></lable>
+      </div><br>
+      <div class="line">
+        <lable>Email:</lable><lable class="infoLable, displayEmail"></lable>
+      </div><br>
+
+      <div class="wall" id="userWall">
+        <form onsubmit="postMessage(this); return false;">
+        <textarea id="message" placeholder="message"></textarea><br>
+        <button type="submit">Send</button>
+        <button onclick="updateWall();return false;">Update</button><br>
+          <div class="messageWall">
+          </div>
+      </div>
+    </div>
+
+    </script>
+
     <!--      script for profileview         -->
     <script type="text/view" id="profileview">
       <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Home')" id="defaultOpen">Home</button>
+        <button class="tablinks" onclick="openTab(event, 'Home'); getuserdata(null);" id="defaultOpen">Home</button>
         <button class="tablinks" onclick="openTab(event, 'Browse')">Browse</button>
         <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
       </div>
       <!-- -------------- Home--tab -------------- -->
       <div id="Home" class="tabcontent">
         <h1>Home</h1>
-
-        <div class="info" id ="userInfo">
-          <div class="line">
-            <lable>First name:</lable><labe class="infoLable" id="displayFirstName"></lable>
-          </div><br>
-          <div class="line">
-            <lable>Family name:</lable><labe class="infoLable" id="displayFamilyName"></lable>
-          </div><br>
-          <div class="line">
-            <lable>Gender:</lable><labe class="infoLable" id="displayGender"></lable>
-          </div><br>
-          <div class="line">
-            <lable>City:</lable><labe class="infoLable" id="displayCity"></lable>
-          </div><br>
-          <div class="line">
-            <lable>Country:</lable><labe class="infoLable" id="displayCountry"></lable>
-          </div><br>
-          <div class="line">
-            <lable>Email:</lable><labe class="infoLable" id="displayEmail"></lable>
-          </div><br>
-        </div>
-
-        <div class="wall" id="userWall">
-          <textarea id="message" placeholder="message"></textarea><br>
-          <button onclick="postMessage()">Send</button>
-          <button onclick="updateWall()">Update</button><br>
-            <div id="messageWall" class="messageWall">
-            </div>
+        <div class="content">
         </div>
       </div>
 
       <!-- -------------- Browse--tab -------------- -->
       <div id="Browse" class="tabcontent">
         <h1>Browse</h1>
+          <form onsubmit="getuserdata(this);return false;" >
+            <input class="searchbar" name="email"type="email"placeholder="Search for user by email" required>
+            <button id="search"class="button" type="submit">Search</button>
+          </form>
+          </br>
+          </br>
+          </br>
+          <div class="content">
+          </div>
       </div>
       <!-- -------------- Account--tab -------------- -->
       <div id="Account" class="tabcontent">
-        <div id= "account" class="container">
+        <div id= "account">
           <h2>Account View</h2>
           <div id="changepw" class="container">
             <h3>Change your password</h3>
@@ -154,7 +170,7 @@
     <!--      feedbackArea         -->
     <div id="feedback">
       <button  onclick="closefeedback();" id="close">&times;</button>
-      <p id="message"></p>
+      <p id="errormessage"></p>
     </div>
   </body>
 </html>

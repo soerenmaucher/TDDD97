@@ -29,6 +29,13 @@ function openTab(evt, section) {
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
+    //display profile (for the first two tabs)
+    if(i<2){
+    var profile= document.getElementById("userInfo");
+    var c = tabcontent[i].getElementsByTagName("div")[0];
+    c.innerHTML=profile.innerHTML;
+    }
+
   }
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
@@ -41,14 +48,17 @@ function openTab(evt, section) {
 // feedback function
 function feedback(text) {
     var feedback= document.getElementById('feedback');
-    var message= document.getElementById('message');
+    var message= document.getElementById('errormessage');
     message.innerHTML = text;
     feedback.style.display = "block";
 }
 
 function closefeedback(){
     var feedback= document.getElementById('feedback');
+    var message= document.getElementById('errormessage');
+    message.innerHTML = "";
     feedback.style.display = "none";
+
 }
 
 //signup function
@@ -139,12 +149,87 @@ function changepassword(forminput){
   }
 }
 
+var currentUser =""; //safe current user that was looking for in browser view
+
 // postMessage
-function postMessage() {
-  // to be implicated
+function postMessage(formdata) {
+  var message= formdata.message.value;
+  var token= localStorage.getItem("token");
+  var email= currentUser;
+  if(email==""){
+  var email=serverstub.getUserDataByToken(token).data.email;
+  }
+  returnobject= serverstub.postMessage(token, message, email);
+  feedback(returnobject.message);// maybe check for success?
 }
 
 // updateWall
 function updateWall() {
-  // to be implicated
+  i=1;
+  var email= currentUser;
+  var token= localStorage.getItem("token");
+  returnobject= serverstub.getUserMessagesByEmail(token,email);
+  if (currentUser==""){
+    i=0;
+    returnobject= serverstub.getUserMessagesByToken(token);
+  }
+  var posts = returnobject.data;
+  var userWall = document.getElementsByClassName("messageWall")[i];
+  //check for success?
+  userWall.innerHTML="";
+      for (var j = 0; j < posts.length; j++) {
+         userWall.innerHTML += "<div class='post'>"+posts[j].content + "</br>(" + posts[j].writer+ ")</div></br>";
+       }
+}
+
+/*function getuserdata(formdata){
+var token= localStorage.getItem("token");
+var email = formdata.email.value;
+ currentUser = email;
+var returnobject= serverstub.getUserDataByEmail(token,email);
+    if(!returnobject.success){
+      feedback(returnobject.message);
+        document.getElementById("userInfo").style.display = "none";
+    }
+    else{
+      document.getElementById("userInfo").style.display = "block";
+      userdata= returnobject.data;
+      document.getElementById("displayFirstName").innerHTML=userdata.firstname;
+      document.getElementById("displayFamilyName").innerHTML=userdata.familyname;
+      document.getElementById("displayGender").innerHTML=userdata.gender;
+      document.getElementById("displayCity").innerHTML=userdata.city;
+      document.getElementById("displayCountry").innerHTML=userdata.country;
+      document.getElementById("displayEmail").innerHTML=userdata.email;
+      updateWall(); //not implemented yet
+    }
+
+}*/
+
+function getuserdata(formdata){
+  i=0;
+  var token= localStorage.getItem("token");
+if (formdata==null){
+  var returnobject= serverstub.getUserDataByToken(token);
+}
+else{
+  i=1;
+  var email = formdata.email.value;
+  currentUser = email;
+  var returnobject= serverstub.getUserDataByEmail(token,email);
+}
+    if(returnobject.success){
+      userdata= returnobject.data;
+      document.getElementsByClassName("profile")[i].style.display = "block";
+      document.getElementsByClassName("displayFirstName")[i].innerHTML=userdata.firstname;
+    	document.getElementsByClassName("displayFamilyName")[i].innerHTML=userdata.familyname;
+    	document.getElementsByClassName("displayGender")[i].innerHTML=userdata.gender;
+    	document.getElementsByClassName("displayCity")[i].innerHTML=userdata.city;
+    	document.getElementsByClassName("displayCountry")[i].innerHTML=userdata.country;
+    	document.getElementsByClassName("displayEmail")[i].innerHTML=userdata.email;
+      updateWall(i); //not implemented yet
+    }
+    else{
+      feedback(returnobject.message);
+      document.getElementsByClassName("profile")[i].style.display = "none";
+    }
 }

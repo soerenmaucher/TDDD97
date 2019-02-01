@@ -8,11 +8,12 @@
 
 #pagecontent {
   font-size: 12px;
-	height: 400px;
+	height: 100%;
 	width: 600px;
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 100px;
+	padding-bottom: 50px;
 	overflow: hidden;
 }
 
@@ -45,7 +46,7 @@ label {
 }
 
 input[type=text],
-input[type=email],
+input[type=email]:not(.searchbar),
 input[type=password] {
 	display: inline-block;
 	border: 1px solid #ccc;
@@ -97,6 +98,7 @@ select {
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+	padding-bottom: 30px;
 }
 
 #welcomeimg {
@@ -160,3 +162,39 @@ width:100%;
 	position: relative;
 	top:30px;
 }
+
+.searchbar{
+position: relative;
+float: left;
+padding: 6px;
+width:300px;
+}
+
+#search{
+float:left;
+height: 29px;
+}
+
+#browsercontent{
+height: 100%;
+}
+
+.profile{
+display: none;
+}
+
+.messageWall{
+	position:relative;
+	top: 30px;
+  height: 100%;
+  width: 100%;
+}
+
+.post{
+	border: 1px solid black;
+	text-align: center;
+	box-sizing: border-box;
+	width: 50%;
+	left: 50%;
+	transform: translateX(50%);
+	}
