@@ -1,176 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Twidder</title>
-  <Link href="client.css" type="text/css" rel="stylesheet">
-    <script src="client.js" type="text/javascript"></script>
-    <script src="serverstub.js" type="text/javascript"></script>
-    <script type="text/view" id="welcomeview">
-      <img alt="twidder logo" id="welcomeimg" class="container" src="wimage.png"></img>
-
-      <div  id="wrapper">
-
-        <div class="container" id="login">
-        <form onsubmit="signin(this);return false;">
-          <div class="row">
-          <label>Email</label>
-          <input  type="email" name="email" placeholder="email" required>
-          </div>
-          <div class="row">
-          <label>Password</label>
-          <input  type="password" name="password" placeholder="password" required>
-          </div>
-          <div class="row">
-          <button class="button" type="submit">Login</button>
-          </div>
-        </form>
-        </div>
-
-        <div class="container" id="signup">
-          <h3> Sign up here </h3>
-          <form onsubmit="signup(this);return false;">
-          <div class="row">
-            <label>First name</label>
-            <input  type="text" name="first_name" placeholder="first name" required>
-            </div>
-          <div class="row">
-            <label>Family name</label>
-            <input  type="text" name="family_name" placeholder="family name" required>
-          </div>
-          <div class="row">
-            <label>Gender</label>
-            <select name="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            </select>
-          </div>
-          <div class="row">
-            <label>City</label>
-            <input  type="text" name="city" placeholder="city" required>
-          </div>
-          <div class="row">
-            <label>Country</label>
-            <input  type="text" name="country" placeholder="country" required>
-          </div>
-          <div class="row">
-            <label>Email</label>
-            <input  type="email" name="email" placeholder="email" required>
-          </div>
-          <div class="row">
-            <label>Password</label>
-            <input  type="password" name="password" pattern=".{5,}" placeholder="password" required>
-          </div>
-          <div class="row">
-            <label>Repeat PSW</label>
-            <input  type="password" name="passwordConfirmation" pattern=".{5,}" placeholder="password" required>
-          </div>
-          <div class="row">
-            <button class="button" type="submit">SignUp</button>
-          </div>
-          </form>
-        </div>
+   <head>
+      <title>Twidder</title>
+      <Link href="client.css" type="text/css" rel="stylesheet">
+      <script src="client.js" type="text/javascript"></script>
+      <script src="serverstub.js" type="text/javascript"></script>
+      <script type="text/view" id="welcomeview">
+         <img alt="twidder logo" id="welcomeimg" class="container" src="wimage.png"></img>
+         <div  id="wrapper">
+           <div class="container" id="login">
+           <form onsubmit="signin(this);return false;">
+             <div class="row">
+             <label>Email</label>
+             <input  type="email" name="email" placeholder="email" required>
+             </div>
+             <div class="row">
+             <label>Password</label>
+             <input  type="password" name="password" placeholder="password" required>
+             </div>
+             <div class="row">
+             <button class="button" type="submit">Login</button>
+             </div>
+           </form>
+           </div>
+           <div class="container" id="signup">
+             <h3> Sign up here </h3>
+             <form onsubmit="signup(this);return false;">
+             <div class="row">
+               <label>First name</label>
+               <input  type="text" name="first_name" placeholder="first name" required>
+               </div>
+             <div class="row">
+               <label>Family name</label>
+               <input  type="text" name="family_name" placeholder="family name" required>
+             </div>
+             <div class="row">
+               <label>Gender</label>
+               <select name="gender">
+               <option value="male">Male</option>
+               <option value="female">Female</option>
+               </select>
+             </div>
+             <div class="row">
+               <label>City</label>
+               <input  type="text" name="city" placeholder="city" required>
+             </div>
+             <div class="row">
+               <label>Country</label>
+               <input  type="text" name="country" placeholder="country" required>
+             </div>
+             <div class="row">
+               <label>Email</label>
+               <input  type="email" name="email" placeholder="email" required>
+             </div>
+             <div class="row">
+               <label>Password</label>
+               <input  type="password" name="password" pattern=".{5,}" placeholder="password" required>
+             </div>
+             <div class="row">
+               <label>Repeat PSW</label>
+               <input  type="password" name="passwordConfirmation" pattern=".{5,}" placeholder="password" required>
+             </div>
+             <div class="row">
+               <button class="button" type="submit">SignUp</button>
+             </div>
+             </form>
+           </div>
+         </div>
+      </script>
+      <!--      script for profileview         -->
+      <script type="text/view" id="profileview">
+         <div class="tab">
+           <button class="tablinks" onclick="openTab(event, 'Home'); getuserdata(0, null);" id="defaultOpen">Home</button>
+           <button class="tablinks" onclick="openTab(event, 'Browse');">Browse</button>
+           <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
+         </div>
+         <!-- -------------- Home--tab -------------- -->
+         <div id="Home" class="tabcontent">
+           <h1>Home</h1>
+           <div class="info, profile">
+             <div class="line">
+               <lable>First name:</lable><lable class="infoLable, displayFirstName"></lable>
+             </div><br>
+             <div class="line">
+               <lable>Family name:</lable><lable class="infoLable, displayFamilyName"></lable>
+             </div><br>
+             <div class="line">
+               <lable>Gender:</lable><lable class="infoLable, displayGender"></lable>
+             </div><br>
+             <div class="line">
+               <lable>City:</lable><lable class="infoLable, displayCity"></lable>
+             </div><br>
+             <div class="line">
+               <lable>Country:</lable><lable class="infoLable, displayCountry"></lable>
+             </div><br>
+             <div class="line">
+               <lable>Email:</lable><lable class="infoLable, displayEmail"></lable>
+             </div><br>
+             <div class="wall">
+               <form onsubmit="postMessage(0, this); return false;">
+               <textarea id="message" placeholder="message"></textarea><br>
+               <button type="submit">Send</button>
+               <button onclick="updateWall(0);return false;">Update</button><br>
+               </form>
+                 <div class="messageWall">
+                 </div>
+             </div>
+           </div>
+         </div>
+         <!-- -------------- Browse--tab -------------- -->
+         <div id="Browse" class="tabcontent">
+           <h1>Browse</h1>
+             <form onsubmit="getuserdata(1, this); return false;">
+               <input class="searchbar" name="email" type="email" placeholder="Search for user by email" required>
+               <button id="search" class="button" type="submit">Search</button>
+             </form>
+             </br>
+             </br>
+             </br>
+             <div class="info, profile">
+               <div class="line">
+                 <lable>First name:</lable><lable class="infoLable, displayFirstName"></lable>
+               </div><br>
+               <div class="line">
+                 <lable>Family name:</lable><lable class="infoLable, displayFamilyName"></lable>
+               </div><br>
+               <div class="line">
+                 <lable>Gender:</lable><lable class="infoLable, displayGender"></lable>
+               </div><br>
+               <div class="line">
+                 <lable>City:</lable><lable class="infoLable, displayCity"></lable>
+               </div><br>
+               <div class="line">
+                 <lable>Country:</lable><lable class="infoLable, displayCountry"></lable>
+               </div><br>
+               <div class="line">
+                 <lable>Email:</lable><lable class="infoLable, displayEmail"></lable>
+               </div><br>
+               <div class="wall">
+                 <form onsubmit="postMessage(1, this); return false;">
+                 <textarea id="message" placeholder="message"></textarea><br>
+                 <button type="submit">Send</button>
+                 <button onclick="updateWall(1);return false;">Update</button><br>
+                 </form>
+                   <div class="messageWall">
+                   </div>
+               </div>
+             </div>
+         </div>
+         <!-- -------------- Account--tab -------------- -->
+         <div id="Account" class="tabcontent">
+           <div id= "account">
+             <h2>Account View</h2>
+             <div id="changepw" class="container">
+               <h3>Change your password</h3>
+               <form onsubmit="changepassword(this);return false;" >
+                 <div class="row">
+                   <label>Old password</label>
+                   <input  type="password" name="oldpassword" pattern=".{5,}" placeholder="password" required>
+                 </div></br>
+                 <div class="row">
+                   <label>New password</label>
+                   <input  type="password" name="newpassword" pattern=".{5,}" placeholder="password" required>
+                 </div>
+                 <div class="row">
+                   <label>Repeat New Password</label>
+                   <input  type="password" name="passwordConfirmation" pattern=".{5,}" placeholder="password" required>
+                 </div>
+                 <div class="row">
+                   <button class="button"type="submit">Submit</button>
+                 </div>
+               </form>
+             </div>
+             <div id="logout" class="container">
+               <h3>Logout:</h3>
+               <button  onclick="logout();" id="logoutbutton">log out</button>
+             </div>
+           </div>
+         </div>
+      </script>
+   </head>
+   <body>
+      <div id="pagecontent">
       </div>
-    </script>
-    <!-- MyInfo ------------->
-    <script type="text/view" id="userInfo">
-    <div class="info, profile">
-      <div class="line">
-        <lable>First name:</lable><lable class="infoLable, displayFirstName"></lable>
-      </div><br>
-      <div class="line">
-        <lable>Family name:</lable><lable class="infoLable, displayFamilyName"></lable>
-      </div><br>
-      <div class="line">
-        <lable>Gender:</lable><lable class="infoLable, displayGender"></lable>
-      </div><br>
-      <div class="line">
-        <lable>City:</lable><lable class="infoLable, displayCity"></lable>
-      </div><br>
-      <div class="line">
-        <lable>Country:</lable><lable class="infoLable, displayCountry"></lable>
-      </div><br>
-      <div class="line">
-        <lable>Email:</lable><lable class="infoLable, displayEmail"></lable>
-      </div><br>
-
-      <div class="wall" id="userWall">
-        <form onsubmit="postMessage(this); return false;">
-        <textarea id="message" placeholder="message"></textarea><br>
-        <button type="submit">Send</button>
-        <button onclick="updateWall();return false;">Update</button><br>
-          <div class="messageWall">
-          </div>
+      <!--      feedbackArea         -->
+      <div id="feedback">
+         <button  onclick="closefeedback();" id="close">&times;</button>
+         <p id="errormessage"></p>
       </div>
-    </div>
-
-    </script>
-
-    <!--      script for profileview         -->
-    <script type="text/view" id="profileview">
-      <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Home'); getuserdata(null);" id="defaultOpen">Home</button>
-        <button class="tablinks" onclick="openTab(event, 'Browse')">Browse</button>
-        <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
-      </div>
-      <!-- -------------- Home--tab -------------- -->
-      <div id="Home" class="tabcontent">
-        <h1>Home</h1>
-        <div class="content">
-        </div>
-      </div>
-
-      <!-- -------------- Browse--tab -------------- -->
-      <div id="Browse" class="tabcontent">
-        <h1>Browse</h1>
-          <form onsubmit="getuserdata(this);return false;" >
-            <input class="searchbar" name="email"type="email"placeholder="Search for user by email" required>
-            <button id="search"class="button" type="submit">Search</button>
-          </form>
-          </br>
-          </br>
-          </br>
-          <div class="content">
-          </div>
-      </div>
-      <!-- -------------- Account--tab -------------- -->
-      <div id="Account" class="tabcontent">
-        <div id= "account">
-          <h2>Account View</h2>
-          <div id="changepw" class="container">
-            <h3>Change your password</h3>
-            <form onsubmit="changepassword(this);return false;" >
-              <div class="row">
-                <label>Old password</label>
-                <input  type="password" name="oldpassword" pattern=".{5,}" placeholder="password" required>
-              </div></br>
-              <div class="row">
-                <label>New password</label>
-                <input  type="password" name="newpassword" pattern=".{5,}" placeholder="password" required>
-              </div>
-              <div class="row">
-                <label>Repeat New Password</label>
-                <input  type="password" name="passwordConfirmation" pattern=".{5,}" placeholder="password" required>
-              </div>
-              <div class="row">
-                <button class="button"type="submit">Submit</button>
-              </div>
-            </form>
-          </div>
-          <div id="logout" class="container">
-            <h3>Logout:</h3>
-            <button  onclick="logout();" id="logoutbutton">log out</button>
-          </div>
-        </div>
-      </div>
-    </script>
-  </head>
-  <body>
-    <div id="pagecontent">
-    </div>
-    <!--      feedbackArea         -->
-    <div id="feedback">
-      <button  onclick="closefeedback();" id="close">&times;</button>
-      <p id="errormessage"></p>
-    </div>
-  </body>
+   </body>
 </html>
