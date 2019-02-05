@@ -5,7 +5,7 @@
       <Link href="client.css" type="text/css" rel="stylesheet">
       <script src="client.js" ></script>
       <script src="serverstub.js"></script>
-      <script type="text/view" id="welcomeview">
+      <script type="text/view" id="welcomeView">
          <img alt="twidder logo" id="welcomeimg" class="container" src="wimage.png"></img>
          <div  id="wrapper">
            <div class="container" id="login">
@@ -28,11 +28,11 @@
              <form onsubmit="signup(this);return false;">
              <div class="row">
                <label>First name</label>
-               <input  type="text" name="first_name" placeholder="first name" required>
+               <input  type="text" name="firstName" placeholder="first name" required>
                </div>
              <div class="row">
                <label>Family name</label>
-               <input  type="text" name="family_name" placeholder="family name" required>
+               <input  type="text" name="familyName" placeholder="family name" required>
              </div>
              <div class="row">
                <label>Gender</label>
@@ -69,14 +69,14 @@
          </div>
       </script>
       <!--      script for profileview         -->
-      <script type="text/view" id="profileview">
+      <script type="text/view" id="profileView">
          <div class="tab">
-           <button class="tablinks" onclick="openTab(event, 'Home'); getuserdata(0, null);" id="defaultOpen">Home</button>
+           <button class="tablinks" onclick="openTab(event, 'Home'); getUserData(0, null);" id="defaultOpen">Home</button>
            <button class="tablinks" onclick="openTab(event, 'Browse');">Browse</button>
            <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
          </div>
          <!-- ======== Home tab ======== -->
-         <div id="Home" class="tabcontent">
+         <div id="Home" class="tabContent">
            <h1>Home</h1>
            <div class="info, profile">
              <div class="line">
@@ -99,7 +99,7 @@
              </div><br>
              <div class="wall">
                <form onsubmit="postMessage(0, this); return false;">
-               <textarea id="ownmessage" placeholder="message"></textarea><br>
+               <textarea id="ownMessage" placeholder="message"></textarea><br>
                <button type="submit">Send</button>
                <button onclick="updateWall(0);return false;">Update</button><br>
                </form>
@@ -109,9 +109,9 @@
            </div>
          </div>
           <!-- ======== Browse tab ======== -->
-         <div id="Browse" class="tabcontent">
+         <div id="Browse" class="tabContent">
            <h1>Browse</h1>
-             <form onsubmit="getuserdata(1, this); return false;">
+             <form onsubmit="getUserData(1, this); return false;">
                <input class="searchbar" name="email" type="email" placeholder="Search for user by email" required>
                <button id="search" class="button" type="submit">Search</button>
              </form>
@@ -149,20 +149,20 @@
              </div>
          </div>
           <!-- ======== Account tab ======== -->
-         <div id="Account" class="tabcontent">
+         <div id="Account" class="tabContent">
            <div id= "account">
              <h1>Account View</h1>
              <div id="changepw" class="container">
                <h3>Change your password</h3>
-               <form onsubmit="changepassword(this);return false;" >
+               <form onsubmit="changePassword(this);return false;" >
                  <div class="row">
                    <label>Old password</label>
-                   <input  type="password" name="oldpassword" pattern=".{5,}" placeholder="password" required>
+                   <input  type="password" name="oldPassword" pattern=".{5,}" placeholder="password" required>
                  </div>
                  <br>
                  <div class="row">
                    <label>New password</label>
-                   <input  type="password" name="newpassword" pattern=".{5,}" placeholder="password" required>
+                   <input  type="password" name="newPassword" pattern=".{5,}" placeholder="password" required>
                  </div>
                  <div class="row">
                    <label>Repeat</label>
@@ -175,19 +175,19 @@
              </div>
              <div id="logout" class="container">
                <h3>Logout:</h3>
-               <button  onclick="logout();" id="logoutbutton">log out</button>
+               <button  onclick="logout();" id="logoutButton">log out</button>
              </div>
            </div>
          </div>
       </script>
    </head>
    <body>
-      <div id="pagecontent">
+      <div id="pageContent">
       </div>
       <!--      feedbackArea         -->
       <div id="feedback">
-         <button  onclick="closefeedback();" id="close">&times;</button>
-         <p id="errormessage"></p>
+         <button  onclick="closeFeedback();" id="close">&times;</button>
+         <p id="errorMessage"></p>
       </div>
    </body>
 </html>
