@@ -135,11 +135,14 @@ var otherUser = ""; //save current user that was looking for in browser view
 
 // a indicates which view is active and form data includes the message
 function postMessage(a, formdata) {
-    var message = formdata.message.value;
-    var token = localStorage.getItem("token");
-    var email = otherUser;
+  var token = localStorage.getItem("token");
     if (a == 0) { //if on home view is active we get our own email
-        var email = serverstub.getUserDataByToken(token).data.email;
+      var email = serverstub.getUserDataByToken(token).data.email;
+      var message =formdata.ownmessage.value;
+    }
+    else{
+          var email = otherUser;
+          var message =formdata.message.value;
     }
     returnobject = serverstub.postMessage(token, message, email);
     feedback(returnobject.message);

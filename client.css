@@ -198,3 +198,7 @@ display: none;
 	left: 50%;
 	transform: translateX(50%);
 	}
+
+	.bold{
+		font-weight: bold;
+	}

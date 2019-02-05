@@ -3,8 +3,8 @@
    <head>
       <title>Twidder</title>
       <Link href="client.css" type="text/css" rel="stylesheet">
-      <script src="client.js" type="text/javascript"></script>
-      <script src="serverstub.js" type="text/javascript"></script>
+      <script src="client.js" ></script>
+      <script src="serverstub.js"></script>
       <script type="text/view" id="welcomeview">
          <img alt="twidder logo" id="welcomeimg" class="container" src="wimage.png"></img>
          <div  id="wrapper">
@@ -75,31 +75,31 @@
            <button class="tablinks" onclick="openTab(event, 'Browse');">Browse</button>
            <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
          </div>
-         <!-- -------------- Home--tab -------------- -->
+         <!-- ======== Home tab ======== -->
          <div id="Home" class="tabcontent">
            <h1>Home</h1>
            <div class="info, profile">
              <div class="line">
-               <lable>First name:</lable><lable class="infoLable, displayFirstName"></lable>
+               <label class="bold">First name:</label><label class="displayFirstName"></label>
              </div><br>
              <div class="line">
-               <lable>Family name:</lable><lable class="infoLable, displayFamilyName"></lable>
+               <label class="bold">Family name:</label><label class="displayFamilyName"></label>
              </div><br>
              <div class="line">
-               <lable>Gender:</lable><lable class="infoLable, displayGender"></lable>
+               <label class="bold">Gender:</label><label class="displayGender"></label>
              </div><br>
              <div class="line">
-               <lable>City:</lable><lable class="infoLable, displayCity"></lable>
+               <label class="bold">City:</label><label class="displayCity"></label>
              </div><br>
              <div class="line">
-               <lable>Country:</lable><lable class="infoLable, displayCountry"></lable>
+               <label class="bold">Country:</label><label class="displayCountry"></label>
              </div><br>
              <div class="line">
-               <lable>Email:</lable><lable class="infoLable, displayEmail"></lable>
+               <label class="bold">Email:</label><label class="displayEmail"></label>
              </div><br>
              <div class="wall">
                <form onsubmit="postMessage(0, this); return false;">
-               <textarea id="message" placeholder="message"></textarea><br>
+               <textarea id="ownmessage" placeholder="message"></textarea><br>
                <button type="submit">Send</button>
                <button onclick="updateWall(0);return false;">Update</button><br>
                </form>
@@ -108,34 +108,34 @@
              </div>
            </div>
          </div>
-         <!-- -------------- Browse--tab -------------- -->
+          <!-- ======== Browse tab ======== -->
          <div id="Browse" class="tabcontent">
            <h1>Browse</h1>
              <form onsubmit="getuserdata(1, this); return false;">
                <input class="searchbar" name="email" type="email" placeholder="Search for user by email" required>
                <button id="search" class="button" type="submit">Search</button>
              </form>
-             </br>
-             </br>
-             </br>
+             <br>
+             <br>
+             <br>
              <div class="info, profile">
                <div class="line">
-                 <lable>First name:</lable><lable class="infoLable, displayFirstName"></lable>
+                 <label class="bold">First name:</label><label class="displayFirstName"></label>
                </div><br>
                <div class="line">
-                 <lable>Family name:</lable><lable class="infoLable, displayFamilyName"></lable>
+                 <label class="bold">Family name:</label><label class="displayFamilyName"></label>
                </div><br>
                <div class="line">
-                 <lable>Gender:</lable><lable class="infoLable, displayGender"></lable>
+                 <label class="bold">Gender:</label><label class="displayGender"></label>
                </div><br>
                <div class="line">
-                 <lable>City:</lable><lable class="infoLable, displayCity"></lable>
+                 <label class="bold">City:</label><label class="displayCity"></label>
                </div><br>
                <div class="line">
-                 <lable>Country:</lable><lable class="infoLable, displayCountry"></lable>
+                 <label class="bold">Country:</label><label class="displayCountry"></label>
                </div><br>
                <div class="line">
-                 <lable>Email:</lable><lable class="infoLable, displayEmail"></lable>
+                 <label class="bold">Email:</label><label class="displayEmail"></label>
                </div><br>
                <div class="wall">
                  <form onsubmit="postMessage(1, this); return false;">
@@ -148,27 +148,28 @@
                </div>
              </div>
          </div>
-         <!-- -------------- Account--tab -------------- -->
+          <!-- ======== Account tab ======== -->
          <div id="Account" class="tabcontent">
            <div id= "account">
-             <h2>Account View</h2>
+             <h1>Account View</h1>
              <div id="changepw" class="container">
                <h3>Change your password</h3>
                <form onsubmit="changepassword(this);return false;" >
                  <div class="row">
                    <label>Old password</label>
                    <input  type="password" name="oldpassword" pattern=".{5,}" placeholder="password" required>
-                 </div></br>
+                 </div>
+                 <br>
                  <div class="row">
                    <label>New password</label>
                    <input  type="password" name="newpassword" pattern=".{5,}" placeholder="password" required>
                  </div>
                  <div class="row">
-                   <label>Repeat New Password</label>
+                   <label>Repeat</label>
                    <input  type="password" name="passwordConfirmation" pattern=".{5,}" placeholder="password" required>
                  </div>
                  <div class="row">
-                   <button class="button"type="submit">Submit</button>
+                   <button class="button" type="submit">Submit</button>
                  </div>
                </form>
              </div>
