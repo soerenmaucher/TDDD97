@@ -8,7 +8,7 @@ from random import randint
 
 @app.route('/signin', methods=['POST'])
 def sign_in():
-    email = request.json['email'] #can be replaced by form later
+    email = request.json['email']
     password = request.json['password']
     if ((email!="")&(password!="")):
          if(database_helper.verify(email, password)):
@@ -57,19 +57,18 @@ def sign_up():
         return json.dumps({'success': False, 'message': 'User already exists'})
 
 
-@app.route('/logout/<token>', methods=['GET'])
-def sign_out(token):
-    test = request.headers.get('token') #test: use own token
-    #test = request.headers.get('Authorization') #use Bearer token in authentication
-    print(test)
+@app.route('/logout', methods=['POST'])
+def sign_out():
+    token = request.headers.get('token')
     result = database_helper.remove_loggedIn(token)
     if(result):
         return json.dumps({'success': True, 'message': 'Sucessfully logged out'})
     else:
         return json.dumps({'success': False, 'message': 'Logout not possible'})
 
-@app.route('/getmyself/<token>', methods=['GET'])# probably not secure to pass token via URL
-def get_user_data_by_token(token):
+@app.route('/getmyself', methods=['GET'])
+def get_user_data_by_token():
+    token = request.headers.get('token')
     user = database_helper.get_user_by_token(token)
     if (user !=None):
         return json.dumps({'success': True, 'message': 'User data received', 'data': user})
@@ -77,8 +76,9 @@ def get_user_data_by_token(token):
         return json.dumps({'success': False, 'message': 'User does not exist or You are not signed in'})
 
 
-@app.route('/getuser/<token>/<email>', methods=['GET'])
-def get_user_data_by_email(token,email):
+@app.route('/getuser/<email>', methods=['GET'])
+def get_user_data_by_email(email):
+    token = request.headers.get('token')
     if(database_helper.get_email_by_token(token) != None):
         user = database_helper.get_user_by_email(email)
         if (user !=None):
@@ -88,8 +88,9 @@ def get_user_data_by_email(token,email):
     else:
         return json.dumps({'success': False, 'message': 'You have to be logged in to see other users'})
 
-@app.route('/newpassword/<token>', methods=['GET', 'POST'])
-def change_password(token):
+@app.route('/newpassword', methods=['POST'])
+def change_password():
+    token = request.headers.get('token')
     email=database_helper.get_email_by_token(token)
     if (email!=None):
         oldPassword = request.json['oldPassword']
@@ -109,9 +110,10 @@ def change_password(token):
     else:
         return json.dumps({'success': False, 'message': 'You have to be logged in'})
 
-@app.route('/usermessages/<token>', defaults={'email': None}, methods=['GET'])
-@app.route('/usermessages/<token>/<email>', methods=['GET'])
-def get_user_messages(token, email): #is both. get messages by email and token!!!
+@app.route('/usermessages/', defaults={'email': None}, methods=['GET'])
+@app.route('/usermessages/<email>', methods=['GET'])
+def get_user_messages(email): #is both. get messages by email and token!!!
+    token = request.headers.get('token')
     if email is None:
         email = database_helper.get_email_by_token(token)
     if(database_helper.get_email_by_token(token) != None):
@@ -123,11 +125,12 @@ def get_user_messages(token, email): #is both. get messages by email and token!!
     else:
         return json.dumps({"success": False, "message": "You have to be logged in to see messages"})
 
-@app.route('/post/<token>/<userEmail>', methods=['GET', 'POST'])
-def post_message(token, userEmail):
+@app.route('/post/<userEmail>', methods=['POST'])
+def post_message(userEmail):
+    token = request.headers.get('token')
     message = request.json['message']
     authorEmail = database_helper.get_email_by_token(token)
-    if(authorEmail !=None): #more validation
+    if(authorEmail !=None):
         if (database_helper.get_user_by_email(userEmail)!=None):
             database_helper.add_to_messages(userEmail,authorEmail, message)
             return json.dumps({"success": True, "message": "Message posted"})

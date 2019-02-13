@@ -30,7 +30,7 @@ def query_db(querry, arguments, one = True):
 
 def insert_user(firstName, familyName, gender, city, country, email, password):
     result = query_db('insert into users values (?, ?, ?, ?, ?, ?, ?)', [firstName, familyName, gender, city, country, email, password])
-    return True # validaton etc.!
+    return True
 
 
 def verify(email, password):
@@ -81,7 +81,7 @@ def update_password(email, password):
     return query_db('update users set password = ? where email = ?', (password, email))
 
 def get_messages(userEmail):
-    result = query_db('select * from messages where userEmail = ?', (userEmail,), False)#what type is this? is it enough?
+    result = query_db('select * from messages where userEmail = ?', (userEmail,), False)
     return result
 
 def add_to_messages(userEmail, authorEmail, message):

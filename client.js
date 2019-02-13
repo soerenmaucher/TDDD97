@@ -190,4 +190,5 @@ function getUserData(section, formData) {
         feedback(returnObject.message);
         document.getElementsByClassName("profile")[i].style.display = "none"; //if user doesn't exist hide profileview
     }
+
 }
