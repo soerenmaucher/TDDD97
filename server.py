@@ -59,6 +59,9 @@ def sign_up():
 
 @app.route('/logout/<token>', methods=['GET'])
 def sign_out(token):
+    test = request.headers.get('token') #test: use own token
+    #test = request.headers.get('Authorization') #use Bearer token in authentication
+    print(test)
     result = database_helper.remove_loggedIn(token)
     if(result):
         return json.dumps({'success': True, 'message': 'Sucessfully logged out'})
