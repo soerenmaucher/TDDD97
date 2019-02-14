@@ -5,7 +5,6 @@ app = Flask(__name__)
 import json
 from random import randint
 
-
 @app.route('/signin', methods=['POST'])
 def sign_in():
     email = request.json['email']

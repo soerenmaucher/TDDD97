@@ -55,7 +55,7 @@ def remove_loggedIn(token):
             return False
 
 def get_user_by_email(email):
-    result = query_db('select * from users where email = ?', (email,), True)
+    result = query_db('select firstName, familyName, gender, city, country, email from users where email = ?', (email,), True)
     return result
 
 def get_email_by_token(token):
@@ -68,7 +68,7 @@ def get_user_by_token(token):
     email = get_email_by_token(token)
     result = None
     if (email !=None):
-        result = query_db('select * from users where email = ?', (email,), True)
+        result = query_db('select firstName, familyName, gender, city, country, email from users where email = ?', (email,), True)
     return result
 
 def get_password(email):
