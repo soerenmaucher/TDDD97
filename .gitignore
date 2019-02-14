@@ -1,0 +1,3 @@
+ENV/
+sqlite3/
+database_helper.pyc
