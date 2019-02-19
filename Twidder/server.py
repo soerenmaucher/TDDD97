@@ -1,9 +1,18 @@
-from flask import Flask
+from flask import Flask, request, jsonify, send_from_directory, app
 import database_helper
 from flask import request
 app = Flask(__name__)
 import json
 from random import randint
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+@app.route('/')
+def hello_world():
+    return app.send_static_file('client.html')
+
 
 @app.route('/signin', methods=['POST'])
 def sign_in():

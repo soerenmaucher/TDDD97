@@ -2,11 +2,11 @@
 <html lang="en">
    <head>
       <title>Twidder</title>
-      <Link href="client.css" type="text/css" rel="stylesheet">
-      <script src="client.js" ></script>
-      <script src="serverstub.js"></script>
+      <Link href="static/client.css" type="text/css" rel="stylesheet">
+        <script src="static/client.js" ></script>
+        <script src="static/serverstub.js"></script>
       <script type="text/view" id="welcomeView">
-         <img alt="twidder logo" id="welcomeimg" class="container" src="wimage.png"></img>
+         <img alt="twidder logo" id="welcomeimg" class="container" src="static/wimage.png"></img>
          <div  id="wrapper">
            <div class="container" id="login">
            <form onsubmit="signin(this);return false;">
@@ -37,8 +37,8 @@
              <div class="row">
                <label>Gender</label>
                <select name="gender">
-               <option value="male">Male</option>
-               <option value="female">Female</option>
+               <option value="Male">Male</option>
+               <option value="Female">Female</option>
                </select>
              </div>
              <div class="row">
@@ -71,7 +71,7 @@
       <!--      script for profileview         -->
       <script type="text/view" id="profileView">
          <div class="tab">
-           <button class="tablinks" onclick="openTab(event, 'Home'); getUserData(0, null);" id="defaultOpen">Home</button>
+           <button class="tablinks" onclick="openTab(event, 'Home'); getMyUserData();" id="defaultOpen">Home</button>
            <button class="tablinks" onclick="openTab(event, 'Browse');">Browse</button>
            <button class="tablinks" onclick="openTab(event, 'Account')">Account</button>
          </div>
@@ -111,7 +111,7 @@
           <!-- ======== Browse tab ======== -->
          <div id="Browse" class="tabContent">
            <h1>Browse</h1>
-             <form onsubmit="getUserData(1, this); return false;">
+             <form onsubmit="getUserData(this); return false;">
                <input class="searchbar" name="email" type="email" placeholder="Search for user by email" required>
                <button id="search" class="button" type="submit">Search</button>
              </form>
@@ -189,5 +189,7 @@
          <button  onclick="closeFeedback();" id="close">&times;</button>
          <p id="errorMessage"></p>
       </div>
+
+
    </body>
 </html>
