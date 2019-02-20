@@ -4,10 +4,8 @@ from flask import request
 app = Flask(__name__)
 import json
 from random import randint
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf8')
+from gevent.pywsgi import WSGIServer
+from geventwebsocket.handler import WebSocketHandler
 
 @app.route('/')
 def hello_world():
@@ -148,5 +146,5 @@ def post_message(userEmail):
         return json.dumps({"success": False, "message": "You have to be logged in"})
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    http_server = WSGIServer(('127.0.0.1', 5000), app, handler_class=WebSocketHandler)
+    http_server.serve_forever()

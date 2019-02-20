@@ -133,37 +133,58 @@ function changePassword(formInput) {
 }
 
 var browsedUser = ""; //save current user that was looking for in browser view
-
+var currentUser="";
 // a indicates which view is active and form data includes the message
 function postMessage(section, formData) {
   var token = localStorage.getItem("token");
-    if (section == 0) { //if on home view is active we get our own email
-      var email = serverstub.getUserDataByToken(token).data.email;
-      var message =formData.ownMessage.value;
-    }
-    else{
-          var email = browsedUser;
-          var message =formData.message.value;
-    }
-    returnObject = serverstub.postMessage(token, message, email);
-    feedback(returnObject.message);
-}
+  var email;
+  var message;
+  if (section == 0){
+    email = currentUser
+    message =formData.ownMessage.value;
+  }
+  else {
+    email= browsedUser;
+    message =formData.message.value;
+  }
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function() {
+         if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+           var httpResponse = JSON.parse(httpRequest.responseText);
+           feedback(httpResponse.message);
+         }
+       };
+      postRequest(httpRequest,"post/"+email, JSON.stringify({'message' : message}), token);
+      return false;
+  }
 
 // is called by update button and on load of tab. a indicates which view is active
 function updateWall(section) {
     i = section;
-    var email = browsedUser;
+    var email="";
+    if (section == 1){
+      email = "/"+browsedUser;
+    }
     var token = localStorage.getItem("token");
-    returnObject = serverstub.getUserMessagesByEmail(token, email);
-    if (i == 0) { //if on home view is active returnObject is overwritten
-        returnObject = serverstub.getUserMessagesByToken(token);
-    }
-    var posts = returnObject.data;
-    var userWall = document.getElementsByClassName("messageWall")[i];
-    userWall.innerHTML = "";
-    for (var j = 0; j < posts.length; j++) { //creating HTML for messageWall
-        userWall.innerHTML += "<div class='post'>" + posts[j].content + "</br>(" + posts[j].writer + ")</div></br>";
-    }
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+           if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+             var httpResponse = JSON.parse(httpRequest.responseText);
+             if(httpResponse.success){
+                 var posts = httpResponse.data;
+                 var userWall = document.getElementsByClassName("messageWall")[i];
+                 userWall.innerHTML = "";
+                 for (var j = posts.length-1; j >-1; j--) { //creating HTML for messageWall
+                     userWall.innerHTML += "<div class='post'>" + posts[j][1] + "</br>(" + posts[j][3]+ ")</div></br>";
+                 }
+               }
+              else{
+                feedback(httpResponse.message);
+              }
+           }
+         };
+        getRequest(httpRequest,"usermessages"+email, null, token);
+        return false;
 }
 
 function getMyUserData() {
@@ -182,6 +203,7 @@ function getMyUserData() {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
+               currentUser=userdata[5];
                updateWall(i);
              }
              else{
