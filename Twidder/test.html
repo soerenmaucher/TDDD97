@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask/Gevent WebSocket Test</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+      if ("WebSocket" in window) {
+                ws = new WebSocket("ws://127.0.0.1:5000/api");
+                ws.onopen = function(){
+        // WebSocket is connected. You can send data by send() method
+       ws.send("hello there");
+     };
+      ws.onmessage = function(evt) { alert(evt.data); };
+      ws.onclose = function() { alert("websocket closed"); };
+            } else {
+                alert("WebSocket not supported");
+            }
+  });
+    </script>
+</head>
+<body>
+    <h1>Send:</h1>
+    <form method='POST' action='#'>
+        <textarea name='data' id="data"></textarea>
+        <div><input type='submit'></div>
+    </form>
+    <h1>Receive:</h1>
+    <div id="log"></div>
+</body>
+</html>

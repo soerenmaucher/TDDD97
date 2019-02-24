@@ -83,7 +83,9 @@ function signin(formInput) {
                     if(httpResponse.success){
                       token = httpResponse.data;
                       localStorage.setItem("token", token);
+                      connectSocket(email);
                       displayView(document.getElementById("profileView"));
+
                     }
                     else{
                       feedback(httpResponse.message);
@@ -266,4 +268,33 @@ function getRequest(request, url, data, token){
   }
 	request.setRequestHeader("Content-type","application/json; charset=utf-8");
 	request.send(data);
+}
+
+//here we connect to the socket and implement all the functions regrding open, message, colse etc.
+  var ws;
+ function connectSocket(email){
+	ws = new WebSocket("ws://127.0.0.1:5000/api");
+  ws.onopen = function()
+{
+   console.log("connection built");
+    ws.send(email);
+};
+
+ws.onmessage = function(response)
+{
+    if (JSON.parse(response.data) == "logout"){
+      //logout without closing connection again
+      localStorage.removeItem("token");
+      displayView(document.getElementById("welcomeView"));
+      feedback("You have been logged out from another device");
+    }
+};
+
+ws.onclose = function()
+{ console.log("connection closed");
+};
+
+ws.onerror = function()
+{console.log("Error with Sockets");
+};
 }

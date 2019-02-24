@@ -6,6 +6,11 @@ import json
 from random import randint
 from gevent.pywsgi import WSGIServer
 from geventwebsocket.handler import WebSocketHandler
+from geventwebsocket import WebSocketError
+
+
+active_sockets = dict()
+
 
 @app.route('/')
 def hello_world():
@@ -66,6 +71,12 @@ def sign_up():
 @app.route('/logout', methods=['POST'])
 def sign_out():
     token = request.headers.get('token')
+    email=str(database_helper.get_email_by_token(token))
+    try: #otherwise on new server start there is problem since active_sockets is empty
+        active_sockets[email].close()
+        del active_sockets[email]
+    except:
+        print("log out")
     result = database_helper.remove_loggedIn(token)
     if(result):
         return json.dumps({'success': True, 'message': 'Sucessfully logged out'})
@@ -144,6 +155,28 @@ def post_message(userEmail):
             return json.dumps({"success": False, "message": "User doesn't exist"})
     else:
         return json.dumps({"success": False, "message": "You have to be logged in"})
+
+@app.route('/api')
+def api():
+    if request.environ.get("wsgi.websocket"):
+        ws = request.environ["wsgi.websocket"]
+        email = ws.receive()
+        if email in active_sockets:
+            active_sockets[email].send(json.dumps("logout"))
+            active_sockets[email].close()
+            del active_sockets[email]
+            active_sockets[email] = ws
+        else:
+            active_sockets[email] = ws
+
+            #keep connection alive
+        while True:
+            try:
+                email = ws.receive()
+            except WebSocketError as e:
+                print("WebSocketError: " + str(e))
+                break
+    return ""
 
 if __name__ == '__main__':
     http_server = WSGIServer(('127.0.0.1', 5000), app, handler_class=WebSocketHandler)
