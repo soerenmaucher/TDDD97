@@ -7,10 +7,11 @@ from random import randint
 from gevent.pywsgi import WSGIServer
 from geventwebsocket.handler import WebSocketHandler
 from geventwebsocket import WebSocketError
+import datetime
 
 
 active_sockets = dict()
-
+i= 0
 
 @app.route('/')
 def hello_world():
@@ -72,8 +73,8 @@ def sign_up():
 def sign_out():
     token = request.headers.get('token')
     email=str(database_helper.get_email_by_token(token))
-    try: #otherwise on new server start there is problem since active_sockets is empty
-        active_sockets[email].close()
+    try: #close connection when manually logged out
+        active_sockets[email].send(json.dumps("close"))
         del active_sockets[email]
     except:
         print("log out")
@@ -160,22 +161,27 @@ def post_message(userEmail):
 def api():
     if request.environ.get("wsgi.websocket"):
         ws = request.environ["wsgi.websocket"]
-        email = ws.receive()
+        token = ws.receive()
+        email=str(database_helper.get_email_by_token(token))
         if email in active_sockets:
-            active_sockets[email].send(json.dumps("logout"))
-            active_sockets[email].close()
+            try:
+                active_sockets[email].send(json.dumps("logout"))
+                print("Active Websocket deleted: " +email)
+            except:
+                print("Active Websocket deleted (due to reload): " +email)
             del active_sockets[email]
             active_sockets[email] = ws
+            print("New Active Websocket added: " +email)
         else:
             active_sockets[email] = ws
-
-            #keep connection alive
-        while True:
-            try:
-                email = ws.receive()
-            except WebSocketError as e:
-                print("WebSocketError: " + str(e))
-                break
+            print("New Active Websocket added: " +email)
+        try:
+            while True:
+                message=ws.receive()
+                if message == "close":
+                    break
+        except WebSocketError as e:
+            print("Client Disconnected Websocket")
     return ""
 
 if __name__ == '__main__':

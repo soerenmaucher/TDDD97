@@ -1,5 +1,6 @@
 window.onload = function() {
     if (localStorage.getItem("token")) {
+        connectSocket(localStorage.getItem("token"));
         displayView(document.getElementById("profileView"));
         // Open the default tab
         document.getElementById("defaultOpen").click();
@@ -65,7 +66,7 @@ function signup(formInput) {
               feedback(httpResponse.message); //should we directly get logged in?
         }
       };
-      postRequest(httpRequest,"signup" ,JSON.stringify({'firstName' : firstName, 'familyName' : familyName, 'gender' : gender, 'country' : country, 'city' : country, 'email' : email, 'password' : password, 'passwordConfirmation' : passwordConfirmation  }), null);
+      postRequest(httpRequest,"signup" ,JSON.stringify({'firstName' : firstName, 'familyName' : familyName, 'gender' : gender, 'country' : country, 'city' : city, 'email' : email, 'password' : password, 'passwordConfirmation' : passwordConfirmation  }), null);
       return false;
 }
 
@@ -83,9 +84,8 @@ function signin(formInput) {
                     if(httpResponse.success){
                       token = httpResponse.data;
                       localStorage.setItem("token", token);
-                      connectSocket(email);
+                      connectSocket(token);
                       displayView(document.getElementById("profileView"));
-
                     }
                     else{
                       feedback(httpResponse.message);
@@ -270,28 +270,36 @@ function getRequest(request, url, data, token){
 	request.send(data);
 }
 
+
 //here we connect to the socket and implement all the functions regrding open, message, colse etc.
-  var ws;
- function connectSocket(email){
-	ws = new WebSocket("ws://127.0.0.1:5000/api");
+ function connectSocket(token){
+var ws = new WebSocket("ws://127.0.0.1:5000/api");
   ws.onopen = function()
 {
    console.log("connection built");
-    ws.send(email);
+    ws.send(token);
 };
 
 ws.onmessage = function(response)
 {
     if (JSON.parse(response.data) == "logout"){
       //logout without closing connection again
+      ws.send("close");
       localStorage.removeItem("token");
+      //same functionality as logout
       displayView(document.getElementById("welcomeView"));
       feedback("You have been logged out from another device");
+    }
+
+    if (JSON.parse(response.data) == "close"){
+      //only closing
+      ws.send("close");
     }
 };
 
 ws.onclose = function()
-{ console.log("connection closed");
+{
+  console.log("connection closed");
 };
 
 ws.onerror = function()
