@@ -5,6 +5,7 @@
       <Link href="static/client.css" type="text/css" rel="stylesheet">
         <script src="static/client.js" ></script>
         <script src="static/serverstub.js"></script>
+         <script type="text/javascript" src="static/sha512rollup.js"></script>
       <script type="text/view" id="welcomeView">
          <img alt="twidder logo" id="welcomeimg" class="container" src="static/wimage.png"></img>
          <div  id="wrapper">
@@ -101,7 +102,7 @@
                <form onsubmit="postMessage(0, this); return false;">
                <textarea id="ownMessage" placeholder="message"></textarea><br>
                <button type="submit">Send</button>
-               <button onclick="updateWall(0);return false;">Update</button><br>
+               <button onclick="updateMyWall();return false;">Update</button><br>
                </form>
                  <div class="messageWall">
                  </div>
@@ -141,7 +142,7 @@
                  <form onsubmit="postMessage(1, this); return false;">
                  <textarea id="message" placeholder="message"></textarea><br>
                  <button type="submit">Send</button>
-                 <button onclick="updateWall(1);return false;">Update</button><br>
+                 <button onclick="updateUserWall();return false;">Update</button><br>
                  </form>
                    <div class="messageWall">
                    </div>

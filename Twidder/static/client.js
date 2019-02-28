@@ -75,7 +75,6 @@ function signin(formInput) {
     if (true) { //validation not done yet!
         var email = formInput.email.value;
         var password = formInput.password.value;
-
         var httpRequest = new XMLHttpRequest();
 
          httpRequest.onreadystatechange = function() {
@@ -83,6 +82,7 @@ function signin(formInput) {
               var httpResponse = JSON.parse(httpRequest.responseText);
                     if(httpResponse.success){
                       token = httpResponse.data;
+                      localStorage.setItem("email", email);
                       localStorage.setItem("token", token);
                       connectSocket(token);
                       displayView(document.getElementById("profileView"));
@@ -92,6 +92,7 @@ function signin(formInput) {
                     }
             }};
           postRequest(httpRequest,"signin" ,JSON.stringify({'email' : email, 'password' : password}), null);
+
           return false;
     }
 }
@@ -100,11 +101,13 @@ function signin(formInput) {
 function logout() {
     var httpRequest = new XMLHttpRequest();
     var token= localStorage.getItem("token");
+    var email = localStorage.getItem("email");
     httpRequest.onreadystatechange = function() {
        if (httpRequest.readyState == 4 & httpRequest.status == 200) {
          var httpResponse = JSON.parse(httpRequest.responseText);
                if(httpResponse.success){
                  localStorage.removeItem("token");
+                  localStorage.removeItem("email");
                  displayView(document.getElementById("welcomeView"));
                  feedback(httpResponse.message);
                }
@@ -113,7 +116,9 @@ function logout() {
                }
        }
      };
-    postRequest(httpRequest,"logout" ,null, token);
+     var data = email + token;
+     var hashedData= hashData(data);
+    postRequest(httpRequest,"logout" ,JSON.stringify({'email': email}), hashedData);
     return false;
 }
 
@@ -122,6 +127,7 @@ function changePassword(formInput) {
     var oldPassword = formInput.oldPassword.value;
     var newPassword = formInput.newPassword.value;
     var passwordConfirmation = formInput.passwordConfirmation.value;
+    var email = localStorage.getItem("email");
     var token = localStorage.getItem("token");
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
@@ -130,19 +136,23 @@ function changePassword(formInput) {
          feedback(httpResponse.message);
        }
      };
-    postRequest(httpRequest,"newpassword" ,JSON.stringify({'oldPassword' : oldPassword, 'newPassword' : newPassword, 'passwordConfirmation' : passwordConfirmation}), token);
+     //Hashing token
+     var data = email + newPassword + oldPassword + token;
+     hashedData= hashData(data); //including token
+    postRequest(httpRequest,"newpassword" ,JSON.stringify({'email': email,'oldPassword' : oldPassword, 'newPassword' : newPassword, 'passwordConfirmation' : passwordConfirmation}), hashedData);
     return false;
 }
 
-var browsedUser = ""; //save current user that was looking for in browser view
-var currentUser="";
+var browsedUser = "";
+
 // a indicates which view is active and form data includes the message
 function postMessage(section, formData) {
   var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem('email');
   var email;
   var message;
   if (section == 0){
-    email = currentUser
+    email = localStorage.getItem('email');
     message =formData.ownMessage.value;
   }
   else {
@@ -156,18 +166,47 @@ function postMessage(section, formData) {
            feedback(httpResponse.message);
          }
        };
-      postRequest(httpRequest,"post/"+email, JSON.stringify({'message' : message}), token);
+
+      var data = myEmail+ email+ message + token;
+      hashedData= hashData(data); //including token
+      postRequest(httpRequest,"post/"+email, JSON.stringify({'message' : message, 'myEmail': myEmail}), hashedData);
       return false;
   }
 
 // is called by update button and on load of tab. a indicates which view is active
-function updateWall(section) {
-    i = section;
-    var email="";
-    if (section == 1){
-      email = "/"+browsedUser;
-    }
-    var token = localStorage.getItem("token");
+
+function updateMyWall(){
+  var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem("email");
+  i=0;
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function() {
+         if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+           var httpResponse = JSON.parse(httpRequest.responseText);
+           if(httpResponse.success){
+               var posts = httpResponse.data;
+               var userWall = document.getElementsByClassName("messageWall")[i];
+               userWall.innerHTML = "";
+               for (var j = posts.length-1; j >-1; j--) { //creating HTML for messageWall
+                   userWall.innerHTML += "<div class='post'>" + posts[j][1] + "</br>(" + posts[j][3]+ ")</div></br>";
+               }
+             }
+            else{
+            }
+         }
+       };
+      var data = myEmail + token;
+      hashedData= hashData(data); //including token
+      postRequest(httpRequest,"mymessages",JSON.stringify({'myEmail' : myEmail}),  hashedData);
+      return false;
+}
+
+
+function updateUserWall() {
+  var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem("email");
+  var email= browsedUser;
+  i=1;
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
            if (httpRequest.readyState == 4 & httpRequest.status == 200) {
@@ -185,8 +224,10 @@ function updateWall(section) {
               }
            }
          };
-        getRequest(httpRequest,"usermessages"+email, null, token);
-        return false;
+         var data = myEmail+ email + token;
+         hashedData= hashData(data); //including token
+         postRequest(httpRequest,"usermessages",JSON.stringify({'myEmail' : myEmail, 'email': email}),  hashedData);
+         return false;
 }
 
 function getMyUserData() {
@@ -205,15 +246,18 @@ function getMyUserData() {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
-               currentUser=userdata[5];
-               updateWall(i);
+               localStorage.setItem('email',userdata[5]);
+               updateMyWall();
              }
              else{
                feedback(httpResponse.message);
              }
            }
          };
-        getRequest(httpRequest,"getmyself" ,null, token);
+        email= localStorage.getItem('email');
+        data= email+ token;
+        hashedData= hashData(data);
+        postRequest(httpRequest,"getmyself" ,JSON.stringify({'email' : email}), hashedData);
         return false;
 }
 
@@ -236,7 +280,7 @@ function getUserData(formdata) {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
-               updateWall(i);
+               updateUserWall();
              }
              else{
                feedback(httpResponse.message);
@@ -244,27 +288,30 @@ function getUserData(formdata) {
              }
            }
          };
-        getRequest(httpRequest,"getuser/"+email ,null,token);
+        myEmail= localStorage.getItem('email');
+        data= email+ myEmail+ token;
+        hashedData= hashData(data);
+        postRequest(httpRequest,"getuser" ,JSON.stringify({'email': email, 'myEmail' : myEmail}),hashedData);
         return false;
 }
 
 //general function that can be used for post requests to safe some code
-function postRequest(request, url, data, token){
+function postRequest(request, url, data, hashedData){
   request.open("POST", url, true);
-  if (token!=null)
+  if (hashedData!=null)
   {
-    	request.setRequestHeader("token", token);
+    	request.setRequestHeader("hashedData", hashedData);
   }
 	request.setRequestHeader("Content-type","application/json; charset=utf-8");
 	request.send(data);
 }
 
 
-function getRequest(request, url, data, token){
+function getRequest(request, url, data, hashedData){
   request.open("GET", url, true);
-  if (token!=null)
+  if (hashedData!=null)
   {
-    	request.setRequestHeader("token", token);
+    	request.setRequestHeader("hashedData", hashedData);
   }
 	request.setRequestHeader("Content-type","application/json; charset=utf-8");
 	request.send(data);
@@ -305,4 +352,11 @@ ws.onclose = function()
 ws.onerror = function()
 {console.log("Error with Sockets");
 };
+}
+
+
+function hashData(data)
+{
+  var hashedData = CryptoJS.SHA512(data);
+  return hashedData;
 }
