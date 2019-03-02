@@ -101,8 +101,8 @@
              <div class="wall">
                <form onsubmit="postMessage(0, this); return false;">
                <textarea id="ownMessage" placeholder="message"></textarea><br>
-               <button type="submit">Send</button>
-               <button onclick="updateMyWall();return false;">Update</button><br>
+               <button name="Send"type="submit">Send</button>
+               <button name="Update" onclick="updateMyWall();return false;">Update</button><br>
                </form>
                  <div class="messageWall">
                  </div>
@@ -141,8 +141,8 @@
                <div class="wall">
                  <form onsubmit="postMessage(1, this); return false;">
                  <textarea id="message" placeholder="message"></textarea><br>
-                 <button type="submit">Send</button>
-                 <button onclick="updateUserWall();return false;">Update</button><br>
+                 <button name="Send" type="submit">Send</button>
+                 <button name="Update" onclick="updateUserWall();return false;">Update</button><br>
                  </form>
                    <div class="messageWall">
                    </div>
