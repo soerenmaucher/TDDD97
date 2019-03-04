@@ -93,7 +93,7 @@ time.sleep(1)
 
 #Test2: Browse user and post message
 print("----test2----")
-browseuser(browser1,"soeren_maucher@web.de")
+browseuser(browser1,"email@web.de")
 time.sleep(1)
 postmessage(browser1, "testmessage",1)
 time.sleep(1)

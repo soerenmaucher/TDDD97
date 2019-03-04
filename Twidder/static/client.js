@@ -139,7 +139,7 @@ function changePassword(formInput) {
      //Hashing token
      var data = email + newPassword + oldPassword + token;
      hashedData= hashData(data); //including token
-    postRequest(httpRequest,"newpassword" ,JSON.stringify({'email': email,'oldPassword' : oldPassword, 'newPassword' : newPassword, 'passwordConfirmation' : passwordConfirmation}), hashedData);
+    postRequest(httpRequest, "newpassword" ,JSON.stringify({'email': email,'oldPassword' : oldPassword, 'newPassword' : newPassword, 'passwordConfirmation' : passwordConfirmation}), hashedData);
     return false;
 }
 
@@ -220,7 +220,6 @@ function updateUserWall() {
                  }
                }
               else{
-                feedback(httpResponse.message);
               }
            }
          };

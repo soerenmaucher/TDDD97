@@ -24,12 +24,6 @@ CREATE TABLE messages (
        FOREIGN KEY (userEmail) REFERENCES users(email),
        FOREIGN KEY (authorEmail) REFERENCES users(email));
 
-INSERT INTO users(email, password, firstName, familyName, gender, city, country)
-VALUES ('test@test.com', 'password', 'john', 'doe', 'Male','USA', 'New York');
-
-INSERT INTO users(email, password, firstName, familyName, gender, city, country)
-VALUES ('soeren_maucher@web.de', 'password', 'soeren', 'maucher', 'Male', 'Linkoeping', 'Sweden');
-
 INSERT INTO messages(message, userEmail, authorEmail)
 VALUES ('Hello Soeren from John', 'soeren_maucher@web.de', "test@test.com");
 
