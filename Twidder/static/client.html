@@ -5,6 +5,8 @@
       <Link href="static/client.css" type="text/css" rel="stylesheet">
         <script src="static/client.js" ></script>
         <script src="static/serverstub.js"></script>
+        <script src="static/dragAndDrop.js" type="text/javascript"></script>
+        <script src="static/media.js" type="text/javascript"></script>
       <script type="text/view" id="welcomeView">
          <img alt="twidder logo" id="welcomeimg" class="container" src="static/wimage.png"></img>
          <div  id="wrapper">
@@ -79,6 +81,31 @@
          <div id="Home" class="tabContent">
            <h1>Home</h1>
            <div class="info, profile">
+
+            <div class="profilePictures">
+
+              <div id="profilePick" ondrop="drop(event)" ondragover="allowDrop(event)">
+              Drag here to make profile picture.
+              </div>
+
+              <div id="examplePick1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img id="examplePickture1" src="static/media/examplePick1.png" draggable="true" ondragstart="drag(event)">
+              </div>
+
+              <div id="examplePick2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img id="examplePickture2" src="static/media/examplePick2.png" draggable="true" ondragstart="drag(event)">
+              </div>
+
+              <div id="uploadbox">
+                <img id="previewFiled" src="" draggable="true" ondragstart="drag(event)" alt="Image preview...">
+              </div>
+                <form id="uploadPicture" onsubmit="updateMedia(); return false;">
+                  <input type="file" accept="image/*" onchange="uploadProfilePicture(); return false;">
+                  <button type="submit">Upload</button>
+                </form>
+            </div>
+            <br><br><br><br>
+
              <div class="line">
                <label class="bold">First name:</label><label class="displayFirstName"></label>
              </div><br>
