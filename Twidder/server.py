@@ -169,7 +169,7 @@ def update_profile_picture(userEmail):
         else:
             return json.dumps({"success": False, "message": "User doesn't exist"})
     else:
-        return json.dumps({"success": False, "message": "You have to be logged in"
+        return json.dumps({"success": False, "message": "You have to be logged in"})
 
 @app.route('/api')
 def api():
