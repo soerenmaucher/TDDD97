@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS loggedIn;
 DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS pictures;
 
 CREATE TABLE users (
        firstName VARCHAR(50) NOT NULL,
