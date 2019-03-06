@@ -15,9 +15,6 @@ function uploadProfilePicture() {
 
 function updateMedia() {
   console.log('update!!');
-  if (document.getElementById('profilePick').innerHTML == ''Drag here to make profile picture.'') {
-    console.log('no image');
-  }
 
   return false;
 }
