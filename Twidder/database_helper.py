@@ -92,6 +92,10 @@ def add_to_profile_pictures(userEmail, authorEmail, picture):
     result = query_db('insert into pictures (userEmail, authorEmail, picture) values (?, ?, ?)', (userEmail, authorEmail, picture))
     return result
 
+def get_profile_pictures(userEmail):
+    result = query_db('select * from pictures where userEmail = ?', (userEmail,), False)
+    return result
+
 @app.route('/')
 def hello_world():
     return 'Database Helper'
