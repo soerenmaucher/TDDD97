@@ -157,6 +157,20 @@ def post_message(userEmail):
     else:
         return json.dumps({"success": False, "message": "You have to be logged in"})
 
+@app.route('/updateProfilePicture/<userEmail>', methods=['POST'])
+def update_profile_picture(userEmail):
+    token= request.headers.get('token')
+    profilePicture = request.json['profilePicture']
+    authorEmail = database_helper.get_email_by_token(token)
+    if(authorEmail !=None):
+        if (database_helper.get_user_by_email(userEmail)!=None):
+            database_helper.add_to_profile_pictures(userEmail, authorEmail, profilePicture);
+            return json.dumps({"success": True, "message": "Picture posted"})
+        else:
+            return json.dumps({"success": False, "message": "User doesn't exist"})
+    else:
+        return json.dumps({"success": False, "message": "You have to be logged in"
+
 @app.route('/api')
 def api():
     if request.environ.get("wsgi.websocket"):

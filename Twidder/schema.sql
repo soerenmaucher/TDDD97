@@ -24,6 +24,14 @@ CREATE TABLE messages (
        FOREIGN KEY (userEmail) REFERENCES users(email),
        FOREIGN KEY (authorEmail) REFERENCES users(email));
 
+CREATE TABLE pictures (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      picture TEXT NOT NULL,
+      userEmail VARCHAR(50) NOT NULL,
+      authorEmail VARCHAR(50) NOT NULL,
+      FOREIGN KEY (userEmail) REFERENCES users(email),
+      FOREIGN KEY (authorEmail) REFERENCES users(email));
+
 INSERT INTO users(email, password, firstName, familyName, gender, city, country)
 VALUES ('test@test.com', 'password', 'john', 'doe', 'Male','USA', 'New York');
 

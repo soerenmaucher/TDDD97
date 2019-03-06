@@ -99,7 +99,7 @@
               <div id="uploadbox">
                 <img id="previewFiled" src="" draggable="true" ondragstart="drag(event)" alt="Image preview...">
               </div>
-                <form id="uploadPicture" onsubmit="updateMedia(); return false;">
+                <form id="uploadPicture" onsubmit="updateMedia(0); return false;">
                   <input type="file" accept="image/*" onchange="uploadProfilePicture(); return false;">
                   <button type="submit">Upload</button>
                 </form>
