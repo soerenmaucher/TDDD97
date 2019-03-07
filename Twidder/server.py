@@ -163,6 +163,7 @@ def update_profile_picture():
     profilePicture = request.json['profilePicture']
     userEmail = database_helper.get_email_by_token(token)
     if(userEmail != None):
+        database_helper.remove_old_profile_picture(userEmail)
         database_helper.add_to_profile_pictures(userEmail, profilePicture);
         return json.dumps({"success": True, "message": "Profile picture uploaded"})
     else:

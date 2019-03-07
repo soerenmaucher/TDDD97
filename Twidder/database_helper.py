@@ -96,6 +96,14 @@ def get_profile_pictures(userEmail):
     result = query_db('select * from pictures where userEmail = ?', (userEmail,), False)
     return result
 
+def remove_old_profile_picture(userEmail):
+    result = query_db('select picture from pictures where userEmail = ?', (userEmail,), True)
+    if (result != None):
+        query_db('delete from pictures where userEmail = ?', (userEmail,))
+        return True
+    else:
+        return False
+
 @app.route('/')
 def hello_world():
     return 'Database Helper'

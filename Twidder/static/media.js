@@ -1,8 +1,9 @@
 /* Function that previews the browsed pocture in the preview
 *  field in the home tab. Get called when the selected file is changed.
-*
+*  Takes no arguments.
 */
 function previewProfilePicture() {
+
   var image = document.getElementById('previewFiled');
   var file = document.querySelector('input[type=file]').files[0];
   var reader  = new FileReader();
@@ -20,6 +21,7 @@ function previewProfilePicture() {
 /* Function to upload profile picture to the server
 *  Gets called on submit in the home tab. And uploads the current
 *  file in the dropzone for profile picktures.
+*  Takes no arguments.
 */
 function uploadProfilePicture() {
 
@@ -28,7 +30,6 @@ function uploadProfilePicture() {
     if (httpRequest.readyState == 4 & httpRequest.status == 200) {
       var httpResponse = JSON.parse(httpRequest.responseText);
       feedback(httpResponse.message);
-
     }
   };
 
@@ -49,22 +50,26 @@ function uploadProfilePicture() {
 /* Function to display profle picture on home tab
 *  and show others pictures next to message in the browse
 *  tab. Called when profile is updated or user is searched.
+*  argument[0]: 0 = home, 1 = browse
 */
 function displayProfilePicture(section) {
-  console.log('display PP!');
-  var token = localStorage.getItem("token");
+
+  console.log('show your PP! ');
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4 & httpRequest.status == 200) {
       var httpResponse = JSON.parse(httpRequest.responseText);
       if(httpResponse.success){
-        if (section == 0) {
-          var pictureBox = document.getElementById('profilePick');
-          pictureBox.innerHTML = "";
-        }
-      } else { feedback(httpResponse.message); }
+        feedback(httpResponse.message);
+      }
     }
   };
+
+  var token = localStorage.getItem("token");
+  if (section == 0) {
+    var pictureBox = document.getElementById('profilePick');
+    pictureBox.innerHTML = "";
+  }
   var dope = getRequest(httpRequest, "profilepicture/", null, token);
   console.log('not stuck! ');
   return false;
