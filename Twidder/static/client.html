@@ -99,8 +99,8 @@
               <div id="uploadbox">
                 <img id="previewFiled" src="" draggable="true" ondragstart="drag(event)" alt="Image preview...">
               </div>
-                <form id="uploadPicture" onsubmit="updateMedia(0); return false;">
-                  <input type="file" accept="image/*" onchange="uploadProfilePicture(); return false;">
+                <form id="uploadPicture" onsubmit="uploadProfilePicture(); return false;">
+                  <input type="file" accept="image/*" onchange="previewProfilePicture(); return false;">
                   <button type="submit">Upload</button>
                 </form>
             </div>
@@ -128,7 +128,7 @@
                <form onsubmit="postMessage(0, this); return false;">
                <textarea id="ownMessage" placeholder="message"></textarea><br>
                <button type="submit">Send</button>
-               <button onclick="updateWall(0);return false;">Update</button><br>
+               <button onclick="updateWall(0);displayProfilePicture(0);return false;">Update</button><br>
                </form>
                  <div class="messageWall">
                  </div>

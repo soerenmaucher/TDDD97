@@ -29,15 +29,19 @@ CREATE TABLE pictures (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       picture TEXT NOT NULL,
       userEmail VARCHAR(50) NOT NULL,
-      authorEmail VARCHAR(50) NOT NULL,
-      FOREIGN KEY (userEmail) REFERENCES users(email),
-      FOREIGN KEY (authorEmail) REFERENCES users(email));
+      FOREIGN KEY (userEmail) REFERENCES users(email));
 
 INSERT INTO users(email, password, firstName, familyName, gender, city, country)
 VALUES ('test@test.com', 'password', 'john', 'doe', 'Male','USA', 'New York');
 
 INSERT INTO users(email, password, firstName, familyName, gender, city, country)
 VALUES ('soeren_maucher@web.de', 'password', 'soeren', 'maucher', 'Male', 'Linkoeping', 'Sweden');
+
+INSERT INTO users(email, password, firstName, familyName, gender, city, country)
+VALUES ('frank@zappa.com', 'password', 'frank', 'zappa', 'Male', 'Baltimore', 'US');
+
+INSERT INTO messages(message, userEmail, authorEmail)
+VALUES ("Hey, there people I'm Bobby Brown.", 'frank@zappa.com', "frank@zappa.com");
 
 INSERT INTO messages(message, userEmail, authorEmail)
 VALUES ('Hello Soeren from John', 'soeren_maucher@web.de', "test@test.com");

@@ -157,19 +157,31 @@ def post_message(userEmail):
     else:
         return json.dumps({"success": False, "message": "You have to be logged in"})
 
-@app.route('/updateProfilePicture/<userEmail>', methods=['POST'])
-def update_profile_picture(userEmail):
-    token= request.headers.get('token')
+@app.route('/uploadprofilepicture/', methods=['POST'])
+def update_profile_picture():
+    token = request.headers.get('token')
     profilePicture = request.json['profilePicture']
-    authorEmail = database_helper.get_email_by_token(token)
-    if(authorEmail !=None):
-        if (database_helper.get_user_by_email(userEmail)!=None):
-            database_helper.add_to_profile_pictures(userEmail, authorEmail, profilePicture);
-            return json.dumps({"success": True, "message": "Picture posted"})
-        else:
-            return json.dumps({"success": False, "message": "User doesn't exist"})
+    userEmail = database_helper.get_email_by_token(token)
+    if(userEmail != None):
+        database_helper.add_to_profile_pictures(userEmail, profilePicture);
+        return json.dumps({"success": True, "message": "Profile picture uploaded"})
     else:
         return json.dumps({"success": False, "message": "You have to be logged in"})
+
+@app.route('/profilepicture/', defaults={'email': None}, methods=['GET'])
+@app.route('/profilepicture/<email>', methods=['GET'])
+def get_user_picture(email):
+    token = request.headers.get('token')
+    if email is None:
+        email = database_helper.get_email_by_token(token)
+    if(database_helper.get_email_by_token(token) != None):
+        result = database_helper.get_profile_pictures(email)
+        if (result!=[]):
+            return json.dumps({"success": True, "message": "picture collected", "data": result})
+        else:
+            return json.dumps({"success": False, "message": "No picture"})
+    else:
+        return json.dumps({"success": False, "message": "You are not logged in"})
 
 @app.route('/api')
 def api():

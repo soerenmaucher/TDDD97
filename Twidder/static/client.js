@@ -205,6 +205,7 @@ function getMyUserData() {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
+               //document.getElementById("profilePick")[i].innerHTML = userdata[6];
                currentUser=userdata[5];
                updateWall(i);
              }
@@ -236,6 +237,7 @@ function getUserData(formdata) {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
+               //document.getElementById("profilePick")[i].innerHTML = userdata[6];
                updateWall(i);
              }
              else{
