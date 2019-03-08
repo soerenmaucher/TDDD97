@@ -54,7 +54,6 @@ function uploadProfilePicture() {
 */
 function displayProfilePicture(section) {
 
-  console.log('show your PP! ');
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4 & httpRequest.status == 200) {
@@ -62,21 +61,25 @@ function displayProfilePicture(section) {
       if(httpResponse.success){
         var post = httpResponse.data[0][1];
         if (post) {
-          console.log('data ' + post);
-          document.getElementById('profilePick').innerHTML = post;
+          if (section == 0) {
+            document.getElementById('profilePick').innerHTML = post;
+          } else if (section == 1) {
+            document.getElementById('userProfilePick').innerHTML = post;
+          }
         }
       } else {
         feedback(httpResponse.message);
       }
     }
   };
-  var email;
+
   var token = localStorage.getItem("token");
   if (section == 1) {
-    email = browsedUser;
+    var email = browsedUser;
     getRequest(httpRequest, "profilepicture/"+email, null, token);
   } else {
     getRequest(httpRequest, "profilepicture/", null, token);
   }
+
   return false;
 }

@@ -240,6 +240,7 @@ function getUserData(formdata) {
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
                //document.getElementById("profilePick")[i].innerHTML = userdata[6];
                updateWall(i);
+               displayProfilePicture(i);
              }
              else{
                feedback(httpResponse.message);

@@ -7,7 +7,7 @@
 .profilePictures {
 }
 
-#profilePick {
+#profilePick, #userProfilePick {
 	text-align: center;
 	color: gray;
 	margin: 2px;
