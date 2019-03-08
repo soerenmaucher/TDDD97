@@ -203,7 +203,7 @@ def post_message(userEmail):
 
 @app.route('/uploadprofilepicture/', methods=['POST'])
 def update_profile_picture():
-    token = request.headers.get('token')
+    token = request.headers.get('hashedData')
     profilePicture = request.json['profilePicture']
     userEmail = database_helper.get_email_by_token(token)
     if(userEmail != None):
@@ -216,7 +216,7 @@ def update_profile_picture():
 @app.route('/profilepicture/', defaults={'email': None}, methods=['GET'])
 @app.route('/profilepicture/<email>', methods=['GET'])
 def get_user_picture(email):
-    token = request.headers.get('token')
+    token = request.headers.get('hashedData')
     if email is None:
         email = database_helper.get_email_by_token(token)
     if(database_helper.get_email_by_token(token) != None):

@@ -25,7 +25,6 @@ CREATE TABLE messages (
        FOREIGN KEY (userEmail) REFERENCES users(email),
        FOREIGN KEY (authorEmail) REFERENCES users(email));
 
-<<<<<<< HEAD
 CREATE TABLE pictures (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       picture TEXT NOT NULL,
@@ -44,8 +43,6 @@ VALUES ('frank@zappa.com', 'password', 'frank', 'zappa', 'Male', 'Baltimore', 'U
 INSERT INTO messages(message, userEmail, authorEmail)
 VALUES ("Hey, there people I'm Bobby Brown.", 'frank@zappa.com', "frank@zappa.com");
 
-=======
->>>>>>> abf3d5b7fabaa71f38c0bb13d920db0d4037f2cd
 INSERT INTO messages(message, userEmail, authorEmail)
 VALUES ('Hello Soeren from John', 'soeren_maucher@web.de', "test@test.com");
 

@@ -68,7 +68,7 @@ function displayProfilePicture(section) {
           }
         }
       } else {
-        feedback(httpResponse.message);
+        //feedback(httpResponse.message);
       }
     }
   };

@@ -245,15 +245,10 @@ function getMyUserData() {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
-<<<<<<< HEAD
                //document.getElementById("profilePick")[i].innerHTML = userdata[6];
-               currentUser=userdata[5];
-               updateWall(i);
-               displayProfilePicture(i);
-=======
                localStorage.setItem('email',userdata[5]);
+               displayProfilePicture(i);
                updateMyWall();
->>>>>>> abf3d5b7fabaa71f38c0bb13d920db0d4037f2cd
              }
              else{
                feedback(httpResponse.message);
@@ -286,13 +281,8 @@ function getUserData(formdata) {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
-<<<<<<< HEAD
-               //document.getElementById("profilePick")[i].innerHTML = userdata[6];
-               updateWall(i);
                displayProfilePicture(i);
-=======
                updateUserWall();
->>>>>>> abf3d5b7fabaa71f38c0bb13d920db0d4037f2cd
              }
              else{
                feedback(httpResponse.message);
