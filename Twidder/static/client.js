@@ -208,6 +208,7 @@ function getMyUserData() {
                //document.getElementById("profilePick")[i].innerHTML = userdata[6];
                currentUser=userdata[5];
                updateWall(i);
+               displayProfilePicture(i);
              }
              else{
                feedback(httpResponse.message);

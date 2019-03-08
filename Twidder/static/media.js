@@ -60,17 +60,23 @@ function displayProfilePicture(section) {
     if (httpRequest.readyState == 4 & httpRequest.status == 200) {
       var httpResponse = JSON.parse(httpRequest.responseText);
       if(httpResponse.success){
+        var post = httpResponse.data[0][1];
+        if (post) {
+          console.log('data ' + post);
+          document.getElementById('profilePick').innerHTML = post;
+        }
+      } else {
         feedback(httpResponse.message);
       }
     }
   };
-
+  var email;
   var token = localStorage.getItem("token");
-  if (section == 0) {
-    var pictureBox = document.getElementById('profilePick');
-    pictureBox.innerHTML = "";
+  if (section == 1) {
+    email = browsedUser;
+    getRequest(httpRequest, "profilepicture/"+email, null, token);
+  } else {
+    getRequest(httpRequest, "profilepicture/", null, token);
   }
-  var dope = getRequest(httpRequest, "profilepicture/", null, token);
-  console.log('not stuck! ');
   return false;
 }
