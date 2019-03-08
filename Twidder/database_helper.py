@@ -43,13 +43,13 @@ def verify(email, password):
     return result
 
 def add_loggedIn(token, email):
-    query_db('insert into loggedIn values (?, ?)', (token, email))
+    result = query_db('insert into loggedIn values (?, ?)', (token, email))
     return True
 
 def remove_loggedIn(token):
         result= query_db('select email from loggedIn where token = ?', (token,), True)
         if(result!=None):
-            query_db('delete from loggedIn where token = ?', (token,))
+            result = query_db('delete from loggedIn where token = ?', (token,))
             return True
         else:
             return False
@@ -69,6 +69,14 @@ def get_user_by_token(token):
     result = None
     if (email !=None):
         result = query_db('select firstName, familyName, gender, city, country, email from users where email = ?', (email,), True)
+    return result
+
+def get_hashedpw_by_email(email):
+    result = None
+    if (email !=None):
+        result = query_db('select password from users where email = ?', (email,), True)
+    if (result!= None):
+        result=result[0]
     return result
 
 def get_password(email):
@@ -107,6 +115,10 @@ def remove_old_profile_picture(userEmail):
 @app.route('/')
 def hello_world():
     return 'Database Helper'
+
+def get_loggedIn_by_email(email):
+    result = query_db('select token from loggedIn where email = ?', (email,), False)
+    return result
 
 
 if __name__ == '__main__':
