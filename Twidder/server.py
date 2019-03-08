@@ -37,7 +37,7 @@ def sign_in():
              for i in range(0, 36):
                  token += letters[randint(0,len(letters) - 1)]
              result = database_helper.add_loggedIn(token, email)
-             print ("token "+token)
+             print ("token "+ token)
              if (result):
                  return json.dumps({'success': True, 'message': 'Signed in', 'data': token})
              else:
@@ -207,24 +207,29 @@ def post_message(userEmail):
 
 @app.route('/uploadprofilepicture/', methods=['POST'])
 def update_profile_picture():
-    token = request.headers.get('hashedData')
+    userEmail = request.json['email']
+    hashedData = request.headers.get('hashedData')
     profilePicture = request.json['profilePicture']
-    userEmail = database_helper.get_email_by_token(token)
-    if(userEmail != None):
+    serverHash = server_hash(userEmail, userEmail)
+    if ((hashedData==serverHash) & (userEmail != None)):
         database_helper.remove_old_profile_picture(userEmail)
         database_helper.add_to_profile_pictures(userEmail, profilePicture);
         return json.dumps({"success": True, "message": "Profile picture uploaded"})
     else:
         return json.dumps({"success": False, "message": "You have to be logged in"})
 
-@app.route('/profilepicture/', defaults={'email': None}, methods=['GET'])
-@app.route('/profilepicture/<email>', methods=['GET'])
+@app.route('/profilepicture/', defaults={'email': None}, methods=['POST'])
+@app.route('/profilepicture/<email>', methods=['POST'])
 def get_user_picture(email):
-    token = request.headers.get('hashedData')
-    if email is None:
-        email = database_helper.get_email_by_token(token)
-    if(database_helper.get_email_by_token(token) != None):
-        result = database_helper.get_profile_pictures(email)
+    hashedData = request.headers.get('hashedData')
+    myEmail = request.json['myEmail']
+    if (email != None):
+        data= email
+    else:
+        data = myEmail
+    serverHash = server_hash(data, myEmail)
+    if (hashedData==serverHash):
+        result = database_helper.get_profile_pictures(data)
         if (result!=[]):
             return json.dumps({"success": True, "message": "picture collected", "data": result})
         else:

@@ -34,9 +34,12 @@ function uploadProfilePicture() {
   };
 
   var token = localStorage.getItem("token");
+  var email = localStorage.getItem("email");
   if (document.getElementById('profilePick').children[0]) {
     var profilePicture = document.getElementById('profilePick').innerHTML;
-    postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : profilePicture}), token);
+    var data = email + token;
+    var hashedData= hashData(data);
+    postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : profilePicture, 'email': email}), hashedData);
     console.log('Profile picture updated.');
     feedback('Profile picture updated.');
   } else {
@@ -74,11 +77,14 @@ function displayProfilePicture(section) {
   };
 
   var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem("email");
+  var data = myEmail + token;
+  var hashedData= hashData(data);
   if (section == 1) {
-    var email = browsedUser;
-    getRequest(httpRequest, "profilepicture/"+email, null, token);
+    email = browsedUser;
+    postRequest(httpRequest, "profilepicture/"+email, JSON.stringify({'myEmail': myEmail}), hashedData);
   } else {
-    getRequest(httpRequest, "profilepicture/", null, token);
+    postRequest(httpRequest, "profilepicture/", JSON.stringify({'myEmail': myEmail}),hashedData);
   }
 
   return false;
