@@ -85,25 +85,18 @@
 
             <div class="profilePictures">
 
-              <div id="profilePick" ondrop="drop(event)" ondragover="allowDrop(event)">
-              Drag here to make profile picture.
-              </div>
-
-              <div id="examplePick1" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <img id="examplePickture1" src="static/media/examplePick1.png" draggable="true" ondragstart="drag(event)">
-              </div>
-
-              <div id="examplePick2" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <img id="examplePickture2" src="static/media/examplePick2.png" draggable="true" ondragstart="drag(event)">
-              </div>
-
               <div id="uploadbox">
                 <img id="previewFiled" src="" draggable="true" ondragstart="drag(event)" alt="Image preview...">
               </div>
-                <form id="uploadPicture" onsubmit="uploadProfilePicture(); return false;">
-                  <input type="file" accept="image/*" onchange="previewProfilePicture(); return false;">
-                  <button type="submit">Upload</button>
-                </form>
+              <form id="uploadPicture" onsubmit="uploadProfilePicture(); return false;">
+                <input type="file" accept="image/*" onchange="previewProfilePicture(); return false;">
+                <button type="submit">Upload</button>
+              </form>
+
+              <div id="examplePick1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img id="examplePickture1" src="static/media/trashcan.jpg" draggable="true" ondragstart="drag(event)">
+              </div>
+
             </div>
             <br><br><br><br>
 

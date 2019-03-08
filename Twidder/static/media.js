@@ -34,8 +34,8 @@ function uploadProfilePicture() {
   };
 
   var token = localStorage.getItem("token");
-  if (document.getElementById('profilePick').children[0]) {
-    var profilePicture = document.getElementById('profilePick').innerHTML;
+  if (document.getElementById('uploadbox').children[0]) {
+    var profilePicture = document.getElementById('uploadbox').innerHTML;
     postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : profilePicture}), token);
     console.log('Profile picture updated.');
     feedback('Profile picture updated.');
@@ -62,7 +62,7 @@ function displayProfilePicture(section) {
         var post = httpResponse.data[0][1];
         if (post) {
           if (section == 0) {
-            document.getElementById('profilePick').innerHTML = post;
+            document.getElementById('uploadbox').innerHTML = post;
           } else if (section == 1) {
             document.getElementById('userProfilePick').innerHTML = post;
           }

@@ -37,3 +37,11 @@ function drop(event) {
   console.log('Dropped');
   return false;
 }
+
+/* Function reset the profile picture when the old one
+*  is deleted. Called when dragged to tresh can.
+*  no argument
+*/
+function setDefaultPicture () {
+
+}

@@ -5,6 +5,7 @@
 }
 
 .profilePictures {
+ 	display: inline-block;
 }
 
 #profilePick, #userProfilePick {

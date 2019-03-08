@@ -69,7 +69,7 @@ def sign_up():
         if ((firstName != "")&(familyName!="")&(city!="")&(country !="")&( (gender== "Male") or (gender =="Female"))&(len(password)>4)&(len(passwordConfirmation)>4)):
             if (password==passwordConfirmation):
                 hashedPassword=bcrypt.generate_password_hash(password)
-                print ("Hashed PW: "+hashedPassword)
+                #print ("Hashed PW: "+hashedPassword)
                 result = database_helper.insert_user(firstName,familyName,gender,city, country,email,hashedPassword)
                 return json.dumps({'success': True, 'message': 'New user successfully created'})
             else:
