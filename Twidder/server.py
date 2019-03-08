@@ -205,6 +205,40 @@ def post_message(userEmail):
     else:
         return json.dumps({"success": False, "message": "You have to be logged in"})
 
+
+@app.route('/uploadvideo', methods=['POST'])
+def upload_video():
+    userEmail = request.json['email']
+    hashedData = request.headers.get('hashedData')
+    video = request.json['video']
+    serverHash = server_hash(userEmail, userEmail)
+    if ((hashedData==serverHash) & (userEmail != None)):
+        database_helper.remove_old_video(userEmail)
+        database_helper.add_video(userEmail, video);
+        return json.dumps({"success": True, "message": "video uploaded"})
+    else:
+        return json.dumps({"success": False, "message": "You have to be logged in"})
+
+@app.route('/getvideo', defaults={'email': None}, methods=['POST'])
+@app.route('/getvideo/<email>', methods=['POST'])
+def get_video(email):
+    hashedData = request.headers.get('hashedData')
+    myEmail = request.json['myEmail']
+    if (email != None):
+        data= email
+    else:
+        data = myEmail
+    serverHash = server_hash(data, myEmail)
+    if (hashedData==serverHash):
+        result = database_helper.get_video(myEmail)
+        if (result!=[]):
+            return json.dumps({"success": True, "message": "video collected", "data": result})
+        else:
+            return json.dumps({"success": False, "message": "No video"})
+    else:
+        return json.dumps({"success": False, "message": "You are not logged in"})
+
+
 @app.route('/uploadprofilepicture/', methods=['POST'])
 def update_profile_picture():
     userEmail = request.json['email']

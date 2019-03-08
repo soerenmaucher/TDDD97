@@ -31,6 +31,12 @@ CREATE TABLE pictures (
       userEmail VARCHAR(50) NOT NULL,
       FOREIGN KEY (userEmail) REFERENCES users(email));
 
+CREATE TABLE videos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      video TEXT NOT NULL,
+      userEmail VARCHAR(50) NOT NULL,
+      FOREIGN KEY (userEmail) REFERENCES users(email));
+
 INSERT INTO users(email, password, firstName, familyName, gender, city, country)
 VALUES ('test@test.com', 'password', 'john', 'doe', 'Male','USA', 'New York');
 

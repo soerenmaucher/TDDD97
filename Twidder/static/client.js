@@ -210,11 +210,11 @@ function updateUserWall() {
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
            if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+             var userWall = document.getElementsByClassName("messageWall")[i];
+             userWall.innerHTML = "";
              var httpResponse = JSON.parse(httpRequest.responseText);
              if(httpResponse.success){
                  var posts = httpResponse.data;
-                 var userWall = document.getElementsByClassName("messageWall")[i];
-                 userWall.innerHTML = "";
                  for (var j = posts.length-1; j >-1; j--) { //creating HTML for messageWall
                      userWall.innerHTML += "<div class='post'>" + posts[j][1] + "</br>(" + posts[j][3]+ ")</div></br>";
                  }
@@ -247,8 +247,9 @@ function getMyUserData() {
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
                //document.getElementById("profilePick")[i].innerHTML = userdata[6];
                localStorage.setItem('email',userdata[5]);
-               displayProfilePicture(i);
+               displayMyProfilePicture();
                updateMyWall();
+               displaymyvideo();
              }
              else{
                feedback(httpResponse.message);
@@ -281,8 +282,9 @@ function getUserData(formdata) {
                document.getElementsByClassName("displayCity")[i].innerHTML =  userdata[3];
                document.getElementsByClassName("displayCountry")[i].innerHTML =  userdata[4];
                document.getElementsByClassName("displayEmail")[i].innerHTML =  userdata[5];
-               displayProfilePicture(i);
+               displayProfilePicture();
                updateUserWall();
+               displayvideo();
              }
              else{
                feedback(httpResponse.message);

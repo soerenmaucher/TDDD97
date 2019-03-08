@@ -22,26 +22,18 @@ function drag(event) {
 *  argument[0]: ondrop-event
 */
 function drop(event) {
-  event.preventDefault();
-  var previousItem = event.target.childNodes[0];
-  var data = event.dataTransfer.getData("text");
+  var token = localStorage.getItem("token");
+  var email = localStorage.getItem("email");
+  var data = email + token;
+  var hashedData= hashData(data);
+  var httpRequest = new XMLHttpRequest();
+  profilePicture = "static/media/default.JPG";
+  postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : profilePicture, 'email': email}), hashedData);
+  document.getElementsByClassName('image')[0].src = profilePicture;
 
-  if (previousItem != null) {
-    event.target.replaceChild(document.getElementById(data), previousItem);
-  } else {
-    event.target.appendChild(document.getElementById(data));
-  }
-  if (document.getElementById('profilePick').innerHTML == "") {
-    document.getElementById('profilePick').innerHTML = "Drag here to make profile picture.";
-  }
-  console.log('Dropped');
-  return false;
 }
 
 /* Function reset the profile picture when the old one
 *  is deleted. Called when dragged to tresh can.
 *  no argument
 */
-function setDefaultPicture () {
-
-}

@@ -2,14 +2,15 @@
 *  field in the home tab. Get called when the selected file is changed.
 *  Takes no arguments.
 */
-function previewProfilePicture() {
-
-  var image = document.getElementById('previewFiled');
-  var file = document.querySelector('input[type=file]').files[0];
+function uploadProfilePicture() {
+  var imageelement = document.getElementsByClassName('image')[0];
+  var file = document.getElementsByName('imgupload')[0].files[0];
   var reader  = new FileReader();
 
   reader.addEventListener("load", function () {
-    image.src = reader.result;
+    imageelement.src = reader.result;
+    alert("stop");
+    saveimage(reader.result);
   }, false);
 
   if (file) {
@@ -23,8 +24,8 @@ function previewProfilePicture() {
 *  file in the dropzone for profile picktures.
 *  Takes no arguments.
 */
-function uploadProfilePicture() {
-
+function saveimage(image) {
+  var imageelement = document.getElementsByClassName('image')[0];
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4 & httpRequest.status == 200) {
@@ -34,24 +35,12 @@ function uploadProfilePicture() {
   };
 
   var token = localStorage.getItem("token");
-<<<<<<< HEAD
-  if (document.getElementById('uploadbox').children[0]) {
-    var profilePicture = document.getElementById('uploadbox').innerHTML;
-    postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : profilePicture}), token);
-=======
   var email = localStorage.getItem("email");
-  if (document.getElementById('profilePick').children[0]) {
-    var profilePicture = document.getElementById('profilePick').innerHTML;
     var data = email + token;
     var hashedData= hashData(data);
-    postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : profilePicture, 'email': email}), hashedData);
->>>>>>> 86b5380c04a455e172688b53d5ab2760b7e4c74b
+    postRequest(httpRequest, "uploadprofilepicture/", JSON.stringify({'profilePicture' : image, 'email': email}), hashedData);
     console.log('Profile picture updated.');
     feedback('Profile picture updated.');
-  } else {
-    console.log('There is no image in the dropzone');
-    feedback('Select an image to upload.');
-  }
 
   return false;
 }
@@ -61,8 +50,99 @@ function uploadProfilePicture() {
 *  tab. Called when profile is updated or user is searched.
 *  argument[0]: 0 = home, 1 = browse
 */
-function displayProfilePicture(section) {
+function displayMyProfilePicture() {
 
+  var httpRequest = new XMLHttpRequest();
+  var imageelement = document.getElementsByClassName('image')[0];
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+      var httpResponse = JSON.parse(httpRequest.responseText);
+      if(httpResponse.success){
+        var post = httpResponse.data[0][1];
+        if (post) {
+            imageelement.src= post;
+          }
+        }
+      } else {
+        //feedback(httpResponse.message);
+      }
+  };
+  var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem("email");
+  var data = myEmail + token;
+  var hashedData= hashData(data);
+  postRequest(httpRequest, "profilepicture/", JSON.stringify({'myEmail': myEmail}),hashedData);
+  return false;
+}
+
+
+function displayProfilePicture() {
+  var imageelement = document.getElementsByClassName('image')[1];
+  imageelement.src= 'static/media/default.JPG';
+  //document.getElementById('userProfilePick').innerHTML = "<img class='image' src='static/media/default.JPG'  alt='Image preview'>";
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function() {
+
+    if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+      var httpResponse = JSON.parse(httpRequest.responseText);
+      if(httpResponse.success){
+        var post = httpResponse.data[0][1];
+        if (post) {
+            document.getElementsByClassName('image')[1].src = post;
+          }
+        }
+      } else {
+        //feedback(httpResponse.message);
+      }
+  };
+  var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem("email");
+  var data = myEmail + token;
+  var hashedData= hashData(data);
+  email = browsedUser;
+  postRequest(httpRequest, "profilepicture/"+email, JSON.stringify({'myEmail': myEmail}), hashedData);
+  return false;
+}
+
+function videoUpload()
+{
+  var videoelement = document.getElementsByClassName("video")[0];
+  var file = document.getElementsByName('videoupload')[0].files[0];
+  var reader  = new FileReader();
+  reader.addEventListener("load", function () {
+    videoelement.src = reader.result;
+    postvideo(reader.result);
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
+function postvideo(video)
+{
+  var token = localStorage.getItem("token");
+  var email = localStorage.getItem("email");
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+      var httpResponse = JSON.parse(httpRequest.responseText);
+      feedback(httpResponse.message);
+    }
+  };
+  //document.getElementsByClassName('videocontainer')[0].innerHTML;
+  console.log(video);
+    var data = email + token;
+    var hashedData= hashData(data);
+    postRequest(httpRequest, "uploadvideo", JSON.stringify({'video' : video, 'email': email}), hashedData);
+    console.log('video uploaded');
+    feedback('video uploaded');
+    return false;
+}
+
+
+function displaymyvideo() {
+  document.getElementsByClassName("video")[0].src= "/static/media/default.mp4";
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4 & httpRequest.status == 200) {
@@ -70,28 +150,42 @@ function displayProfilePicture(section) {
       if(httpResponse.success){
         var post = httpResponse.data[0][1];
         if (post) {
-          if (section == 0) {
-            document.getElementById('uploadbox').innerHTML = post;
-          } else if (section == 1) {
-            document.getElementById('userProfilePick').innerHTML = post;
+            document.getElementsByClassName("video")[0].src= post;
           }
         }
       } else {
         //feedback(httpResponse.message);
       }
-    }
   };
-
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
   var data = myEmail + token;
   var hashedData= hashData(data);
-  if (section == 1) {
-    email = browsedUser;
-    postRequest(httpRequest, "profilepicture/"+email, JSON.stringify({'myEmail': myEmail}), hashedData);
-  } else {
-    postRequest(httpRequest, "profilepicture/", JSON.stringify({'myEmail': myEmail}),hashedData);
-  }
+  postRequest(httpRequest, "getvideo", JSON.stringify({'myEmail': myEmail}), hashedData);
+  return false;
+}
 
+function displayvideo() {
+  document.getElementsByClassName("video")[1].src= "/static/media/default.mp4";
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == 4 & httpRequest.status == 200) {
+      var httpResponse = JSON.parse(httpRequest.responseText);
+      if(httpResponse.success){
+        var post = httpResponse.data[0][1];
+        if (post) {
+            document.getElementsByClassName("video")[1].src= post;
+          }
+        }
+      } else {
+        //feedback(httpResponse.message);
+      }
+  };
+  var token = localStorage.getItem("token");
+  var myEmail = localStorage.getItem("email");
+  var email = browsedUser;
+  var data = myEmail + token;
+  var hashedData= hashData(data);
+  postRequest(httpRequest, "getvideo/"+email, JSON.stringify({'myEmail': myEmail}), hashedData);
   return false;
 }
