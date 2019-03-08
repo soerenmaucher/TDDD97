@@ -27,7 +27,11 @@ def sign_in():
     password = request.json['password']
     if ((email!="")&(password!="")):
          hashedPassword= database_helper.get_hashedpw_by_email(email)
-         if(bcrypt.check_password_hash(hashedPassword, password)):
+         try:
+             result = bcrypt.check_password_hash(hashedPassword, password)
+         except:
+             result =False;
+         if(result & (hashedPassword != None)):
              letters = 'abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
              token = ''
              for i in range(0, 36):
