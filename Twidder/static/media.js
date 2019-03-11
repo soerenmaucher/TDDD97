@@ -1,3 +1,25 @@
+/* Function that checks if the chosen file is an video file
+*  returns true or false.
+*  arg[0] = file to be uploaded
+*/
+function isVideo(file) {
+  var fileName = toString(file);
+  var fileExtention = fileName.split('.').pop();
+  var videoExtentions = ['ogg','mp4','webm'];
+  return videoExtentions.indexOf(fileExtention.toLowerCase()) > -1;
+}
+
+/* Function that checks if the chosen file is an image file
+*  returns true or false.
+*  arg[0] = file to be uploaded
+*/
+function isPicture(file) {
+  var fileName = toString(file);
+  var fileExtention = fileName.split('.').pop();
+  var imageExtentions = ['jpeg','jpg','png','gif'];
+  return imageExtentions.indexOf(fileExtention.toLowerCase()) > -1;
+}
+
 /* Function that previews the browsed pocture in the preview
 *  field in the home tab. Get called when the selected file is changed.
 *  Takes no arguments.
@@ -6,15 +28,18 @@ function uploadProfilePicture() {
   var imageelement = document.getElementsByClassName('image')[0];
   var file = document.getElementsByName('imgupload')[0].files[0];
   var reader  = new FileReader();
+  if (isPicture(file)) {
 
-  reader.addEventListener("load", function () {
-    imageelement.src = reader.result;
-    alert("stop");
-    saveimage(reader.result);
-  }, false);
+    reader.addEventListener("load", function () {
+      imageelement.src = reader.result;
+      saveimage(reader.result);
+    }, false);
 
-  if (file) {
-    reader.readAsDataURL(file);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  } else {
+    feedback('The selected file is not an image file.');
   }
   return false;
 }
@@ -109,13 +134,17 @@ function videoUpload()
   var videoelement = document.getElementsByClassName("video")[0];
   var file = document.getElementsByName('videoupload')[0].files[0];
   var reader  = new FileReader();
-  reader.addEventListener("load", function () {
-    videoelement.src = reader.result;
-    postvideo(reader.result);
-  }, false);
+  if (isVideo(file)) {
+    reader.addEventListener("load", function () {
+      videoelement.src = reader.result;
+      postvideo(reader.result);
+    }, false);
 
-  if (file) {
-    reader.readAsDataURL(file);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  } else {
+    feedback('The selected file is not a video file.');
   }
 }
 
