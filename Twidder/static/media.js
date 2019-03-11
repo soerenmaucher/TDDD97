@@ -105,7 +105,7 @@ function displayMyProfilePicture() {
 
 function displayProfilePicture() {
   var imageelement = document.getElementsByClassName('image')[1];
-  imageelement.src= 'static/media/default.JPG';
+  imageelement.src= 'static/media/default.jpg';
   //document.getElementById('userProfilePick').innerHTML = "<img class='image' src='static/media/default.JPG'  alt='Image preview'>";
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function() {
@@ -124,9 +124,9 @@ function displayProfilePicture() {
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
-  var data = myEmail + token;
+  var data = browsedUser + token;
   var hashedData= hashData(data);
-  email = browsedUser;
+  var email = browsedUser;
   postRequest(httpRequest, "profilepicture/"+email, JSON.stringify({'myEmail': myEmail}), hashedData);
   return false;
 }
