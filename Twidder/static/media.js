@@ -3,8 +3,9 @@
 *  arg[0] = file to be uploaded
 */
 function isVideo(file) {
-  var fileName = toString(file);
-  var fileExtention = fileName.split('.').pop();
+
+  var filename = file.name;
+  var fileExtention = filename.split('.').pop();
   var videoExtentions = ['ogg','mp4','webm'];
   return videoExtentions.indexOf(fileExtention.toLowerCase()) > -1;
 }
@@ -14,9 +15,10 @@ function isVideo(file) {
 *  arg[0] = file to be uploaded
 */
 function isPicture(file) {
-  var fileName = toString(file);
-  var fileExtention = fileName.split('.').pop();
-  var imageExtentions = ['jpeg','jpg','png','gif'];
+
+  var filename = file.name;
+  var fileExtention = filename.split('.').pop();
+  var imageExtentions = ["jpeg", "jpg", "png", "gif"];
   return imageExtentions.indexOf(fileExtention.toLowerCase()) > -1;
 }
 
