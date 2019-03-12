@@ -82,7 +82,6 @@ function saveimage(image) {
 *  argument[0]: 0 = home, 1 = browse
 */
 function displayMyProfilePicture() {
-
   var httpRequest = new XMLHttpRequest();
   var imageelement = document.getElementsByClassName('image')[0];
   httpRequest.onreadystatechange = function() {
@@ -95,7 +94,6 @@ function displayMyProfilePicture() {
           }
         }
       }
-    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
@@ -125,7 +123,6 @@ function displayProfilePicture() {
           }
         }
       }
-    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
@@ -203,7 +200,6 @@ function displaymyvideo() {
           }
         }
       }
-    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
@@ -231,7 +227,6 @@ function displayvideo() {
           }
         }
       }
-    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
