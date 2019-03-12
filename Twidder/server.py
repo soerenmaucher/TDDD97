@@ -37,7 +37,6 @@ def sign_in():
              for i in range(0, 36):
                  token += letters[randint(0,len(letters) - 1)]
              result = database_helper.add_loggedIn(token, email)
-             print ("token "+ token)
              if (result):
                  return json.dumps({'success': True, 'message': 'Signed in', 'data': token})
              else:
@@ -69,7 +68,6 @@ def sign_up():
         if ((firstName != "")&(familyName!="")&(city!="")&(country !="")&( (gender== "Male") or (gender =="Female"))&(len(password)>4)&(len(passwordConfirmation)>4)):
             if (password==passwordConfirmation):
                 hashedPassword=bcrypt.generate_password_hash(password)
-                #print ("Hashed PW: "+hashedPassword)
                 result = database_helper.insert_user(firstName,familyName,gender,city, country,email,hashedPassword)
                 return json.dumps({'success': True, 'message': 'New user successfully created'})
             else:
@@ -90,7 +88,7 @@ def sign_out():
             active_sockets[email].send(json.dumps("close"))
             del active_sockets[email]
         except:
-            print("log out")
+            ("log out")
         token = database_helper.get_loggedIn_by_email(email)[0][0]
         result = database_helper.remove_loggedIn(token)
         if(result):
@@ -230,7 +228,7 @@ def get_video(email):
         data = myEmail
     serverHash = server_hash(data, myEmail)
     if (hashedData==serverHash):
-        result = database_helper.get_video(myEmail)
+        result = database_helper.get_video(data)
         if (result!=[]):
             return json.dumps({"success": True, "message": "video collected", "data": result})
         else:

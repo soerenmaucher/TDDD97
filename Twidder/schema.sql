@@ -39,22 +39,4 @@ CREATE TABLE videos (
       FOREIGN KEY (userEmail) REFERENCES users(email));
 
 INSERT INTO users(email, password, firstName, familyName, gender, city, country)
-VALUES ('test@test.com', 'password', 'john', 'doe', 'Male','USA', 'New York');
-
-INSERT INTO users(email, password, firstName, familyName, gender, city, country)
-VALUES ('soeren_maucher@web.de', 'password', 'soeren', 'maucher', 'Male', 'Linkoeping', 'Sweden');
-
-INSERT INTO users(email, password, firstName, familyName, gender, city, country)
-VALUES ('frank@zappa.com', 'password', 'frank', 'zappa', 'Male', 'Baltimore', 'US');
-
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ("Hey, there people I'm Bobby Brown.", 'frank@zappa.com', "frank@zappa.com");
-
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ('Hello Soeren from John', 'soeren_maucher@web.de', "test@test.com");
-
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ('Hello John from Soeren', "test@test.com", 'soeren_maucher@web.de');
-
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ('Hello myself', 'test@test.com', "test@test.com");
+VALUES ('soeren_maucher@web.de', '$2b$12$4/FYfl/j7f1H3YcnfW1youQ6IhAhAVbY2GQ3QaTSlsbuVOVqQWSxS', 'soeren', 'maucher', 'Male', 'linkoeping', 'sweden');

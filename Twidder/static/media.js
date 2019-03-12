@@ -215,7 +215,7 @@ function displayvideo() {
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
   var email = browsedUser;
-  var data = myEmail + token;
+  var data = browsedUser + token;
   var hashedData= hashData(data);
   postRequest(httpRequest, "getvideo/"+email, JSON.stringify({'myEmail': myEmail}), hashedData);
   return false;
