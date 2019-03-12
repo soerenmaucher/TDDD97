@@ -92,9 +92,43 @@ def get_messages(userEmail):
     result = query_db('select * from messages where userEmail = ?', (userEmail,), False)
     return result
 
+def add_video(userEmail, video):
+    result = query_db('insert into videos (userEmail, video) values (?, ?)', (userEmail, video))
+    return result
+
+def get_video(userEmail):
+    result = query_db('select * from videos where userEmail = ?', (userEmail,), False)
+    return result
+
+def remove_old_video(userEmail):
+    result = query_db('select video from videos where userEmail = ?', (userEmail,), True)
+    if (result != None):
+        query_db('delete from videos where userEmail = ?', (userEmail,))
+        return True
+    else:
+        return False
+
+#remove video missing
+
 def add_to_messages(userEmail, authorEmail, message):
     result = query_db('insert into messages (userEmail, authorEmail, message) values (?, ?, ?)', (userEmail, authorEmail, message))
     return result
+
+def add_to_profile_pictures(userEmail, picture):
+    result = query_db('insert into pictures (userEmail, picture) values (?, ?)', (userEmail, picture))
+    return result
+
+def get_profile_pictures(userEmail):
+    result = query_db('select * from pictures where userEmail = ?', (userEmail,), False)
+    return result
+
+def remove_old_profile_picture(userEmail):
+    result = query_db('select picture from pictures where userEmail = ?', (userEmail,), True)
+    if (result != None):
+        query_db('delete from pictures where userEmail = ?', (userEmail,))
+        return True
+    else:
+        return False
 
 @app.route('/')
 def hello_world():

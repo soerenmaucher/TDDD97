@@ -4,6 +4,71 @@
 	box-sizing: border-box;
 }
 
+.profilePictures {
+ 	display: inline-block;
+}
+
+.videocontainer{
+    overflow:hidden;
+    display:block;
+    height: 80px;
+}
+
+.video{
+	margin-bottom: -50px;
+	margin-top: -120px;
+}
+
+#uploadPicture{
+	margin-top: 10px;
+}
+
+#profilePick, #userProfilePick {
+	text-align: center;
+	color: gray;
+	margin: 2px;
+	height: 100px;
+	width: 100px;
+	border: 1px solid black;
+}
+
+#uploadbox, #previewbox {
+	float: left;
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+	border: 1px solid black;
+}
+
+#examplePickture1 {
+ float: left;
+ display: inline-block;
+ height: 100px;
+ width: 100px;
+ border: 1px solid black;
+}
+
+ .image {
+	float: left;
+	display: inline-block;
+	height: 100px;
+	width:  100px;
+}
+
+img {
+	max-width:100%;
+	max-height:100%;
+}
+
+#previewbox, #uploadbox{
+	float: left;
+	margin: 2px;
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+
+}
+
 #pageContent {
   font-size: 12px;
 	height: 100%;

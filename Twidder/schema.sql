@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS loggedIn;
 DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS pictures;
+DROP TABLE IF EXISTS videos;
 
 CREATE TABLE users (
        firstName VARCHAR(50) NOT NULL,
@@ -24,11 +26,17 @@ CREATE TABLE messages (
        FOREIGN KEY (userEmail) REFERENCES users(email),
        FOREIGN KEY (authorEmail) REFERENCES users(email));
 
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ('Hello Soeren from John', 'soeren_maucher@web.de', "test@test.com");
+CREATE TABLE pictures (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      picture TEXT NOT NULL,
+      userEmail VARCHAR(50) NOT NULL,
+      FOREIGN KEY (userEmail) REFERENCES users(email));
 
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ('Hello John from Soeren', "test@test.com", 'soeren_maucher@web.de');
+CREATE TABLE videos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      video TEXT NOT NULL,
+      userEmail VARCHAR(50) NOT NULL,
+      FOREIGN KEY (userEmail) REFERENCES users(email));
 
-INSERT INTO messages(message, userEmail, authorEmail)
-VALUES ('Hello myself', 'test@test.com', "test@test.com");
+INSERT INTO users(email, password, firstName, familyName, gender, city, country)
+VALUES ('soeren_maucher@web.de', '$2b$12$4/FYfl/j7f1H3YcnfW1youQ6IhAhAVbY2GQ3QaTSlsbuVOVqQWSxS', 'soeren', 'maucher', 'Male', 'linkoeping', 'sweden');

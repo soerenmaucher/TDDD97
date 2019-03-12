@@ -5,8 +5,10 @@
       <Link href="static/client.css" type="text/css" rel="stylesheet">
         <script src="static/client.js" ></script>
         <script src="static/serverstub.js"></script>
-         <script type="text/javascript" src="static/sha512rollup.js"></script>
-      <script type="text/view" id="welcomeView">
+        <script src="static/dragAndDrop.js"></script>
+        <script src="static/media.js"></script>
+         <script src="static/sha512rollup.js"></script>
+         <script type="text/view" id="welcomeView">
          <img alt="twidder logo" id="welcomeimg" class="container" src="static/wimage.png"></img>
          <div  id="wrapper">
            <div class="container" id="login">
@@ -79,7 +81,38 @@
          <!-- ======== Home tab ======== -->
          <div id="Home" class="tabContent">
            <h1>Home</h1>
+         <div class= "videocontainer">
+           <video class ="video"width="600" height: "10" autoplay loop muted><source src="static/media/default.mp4" type="video/mp4" loop></video>
+         </div>
+         <form id="uploadVideo" onsubmit="videoUpload(); return false;">
+           <input name ="videoupload" type="file" accept="video/*">
+           <button type="submit">Uplaod Video</button>
+         </form>
+         </br>
+
+
            <div class="info, profile">
+
+            <div class="profilePictures">
+
+              <div id="uploadbox">
+                <img class="image" src="static/media/default.JPG" draggable="true" ondragstart="drag(event)" alt="Image preview">
+              </div>
+
+              <form id="uploadPicture" onsubmit="uploadProfilePicture(); return false;">
+                <input name ="imgupload" type="file" accept="image/*"></br>
+                <button type="submit">Uplaod and Use</button>
+              </form>
+              <div id="examplePick1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img id="examplePickture1" src="static/media/trashcan.jpg" draggable="true" ondragstart="drag(event)">
+              </div>
+
+
+
+
+            </div>
+            <br><br><br><br>
+
              <div class="line">
                <label class="bold">First name:</label><label class="displayFirstName"></label>
              </div><br>
@@ -101,8 +134,8 @@
              <div class="wall">
                <form onsubmit="postMessage(0, this); return false;">
                <textarea id="ownMessage" placeholder="message"></textarea><br>
+               <button name="Update"onclick="updateMyWall();displayMyProfilePicture();return false;">Update</button><br>
                <button name="Send"type="submit">Send</button>
-               <button name="Update" onclick="updateMyWall();return false;">Update</button><br>
                </form>
                  <div class="messageWall">
                  </div>
@@ -120,6 +153,12 @@
              <br>
              <br>
              <div class="info, profile">
+             <div class= "videocontainer">
+               <video class ="video"width="600" height: "10" autoplay loop muted><source src="static/media/default.mp4" type="video/mp4" loop></video>
+             </div>
+             <div id="userProfilePick">
+              <img class="image" src="static/media/default.jpg" draggable="true" ondragstart="drag(event)" alt="Image preview">
+             </div>
                <div class="line">
                  <label class="bold">First name:</label><label class="displayFirstName"></label>
                </div><br>
@@ -142,7 +181,7 @@
                  <form onsubmit="postMessage(1, this); return false;">
                  <textarea id="message" placeholder="message"></textarea><br>
                  <button name="Send" type="submit">Send</button>
-                 <button name="Update" onclick="updateUserWall();return false;">Update</button><br>
+                 <button name="Update" onclick="updateUserWall();displayProfilePicture();return false;">Update</button><br>
                  </form>
                    <div class="messageWall">
                    </div>
