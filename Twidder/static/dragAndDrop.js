@@ -32,8 +32,3 @@ function drop(event) {
   document.getElementsByClassName('image')[0].src = profilePicture;
 
 }
-
-/* Function reset the profile picture when the old one
-*  is deleted. Called when dragged to tresh can.
-*  no argument
-*/

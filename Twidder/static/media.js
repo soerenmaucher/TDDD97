@@ -1,6 +1,7 @@
 /* Function that checks if the chosen file is an video file
 *  returns true or false.
 *  arg[0] = file to be uploaded
+*  return: ture if file is video
 */
 function isVideo(file) {
 
@@ -13,6 +14,7 @@ function isVideo(file) {
 /* Function that checks if the chosen file is an image file
 *  returns true or false.
 *  arg[0] = file to be uploaded
+*  return: ture if file is picture
 */
 function isPicture(file) {
 
@@ -46,9 +48,10 @@ function uploadProfilePicture() {
   return false;
 }
 
-/* Function to upload profile picture to the server
+/* Function to upload profile pic*  return: ture if file is videoture to the server
 *  Gets called on submit in the home tab. And uploads the current
 *  file in the dropzone for profile picktures.
+*  Sends a post request to uplaod the picture to the database.
 *  Takes no arguments.
 */
 function saveimage(image) {
@@ -75,6 +78,7 @@ function saveimage(image) {
 /* Function to display profle picture on home tab
 *  and show others pictures next to message in the browse
 *  tab. Called when profile is updated or user is searched.
+*  Sends a post request for the users picture.
 *  argument[0]: 0 = home, 1 = browse
 */
 function displayMyProfilePicture() {
@@ -90,9 +94,8 @@ function displayMyProfilePicture() {
             imageelement.src= post;
           }
         }
-      } else {
-        //feedback(httpResponse.message);
       }
+    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
@@ -102,11 +105,14 @@ function displayMyProfilePicture() {
   return false;
 }
 
-
+/* function displaying the profile picture for a
+*  browsed user.
+*  Sends a post request for the browsed users picture.
+*  Takes no arguments.
+*/
 function displayProfilePicture() {
   var imageelement = document.getElementsByClassName('image')[1];
   imageelement.src= 'static/media/default.jpg';
-  //document.getElementById('userProfilePick').innerHTML = "<img class='image' src='static/media/default.JPG'  alt='Image preview'>";
   var httpRequest = new XMLHttpRequest();
   httpRequest.onreadystatechange = function() {
 
@@ -118,9 +124,8 @@ function displayProfilePicture() {
             document.getElementsByClassName('image')[1].src = post;
           }
         }
-      } else {
-        //feedback(httpResponse.message);
       }
+    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
@@ -131,6 +136,10 @@ function displayProfilePicture() {
   return false;
 }
 
+/* Function to borowse videos to user profile with the browse
+*  function buitlt in the html5 inupt tag.
+*  Takes no argument
+*/
 function videoUpload()
 {
   var videoelement = document.getElementsByClassName("video")[0];
@@ -150,6 +159,12 @@ function videoUpload()
   }
 }
 
+/* Function to upload videos to user profile.
+*  Select a video with videoUpload and then post it to the
+*  profile and database with postvideo().
+*  Sends a post request for the video.
+*  Arg[0] = video file to upload.
+*/
 function postvideo(video)
 {
   var token = localStorage.getItem("token");
@@ -161,7 +176,7 @@ function postvideo(video)
       feedback(httpResponse.message);
     }
   };
-  //document.getElementsByClassName('videocontainer')[0].innerHTML;
+
   console.log(video);
     var data = email + token;
     var hashedData= hashData(data);
@@ -171,7 +186,10 @@ function postvideo(video)
     return false;
 }
 
-
+/* Function to display you own video, called on
+*  page refresh and update in the home tab.
+*  No arguments.
+*/
 function displaymyvideo() {
   document.getElementsByClassName("video")[0].src= "/static/media/default.mp4";
   var httpRequest = new XMLHttpRequest();
@@ -184,9 +202,8 @@ function displaymyvideo() {
             document.getElementsByClassName("video")[0].src= post;
           }
         }
-      } else {
-        //feedback(httpResponse.message);
       }
+    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
@@ -196,6 +213,11 @@ function displaymyvideo() {
   return false;
 }
 
+/* Function to display bowsed users video, called on
+*  page refresh and update in the browsed tab.
+*  Sends a get request for the browsed users video.
+*  No arguments.
+*/
 function displayvideo() {
   document.getElementsByClassName("video")[1].src= "/static/media/default.mp4";
   var httpRequest = new XMLHttpRequest();
@@ -208,9 +230,8 @@ function displayvideo() {
             document.getElementsByClassName("video")[1].src= post;
           }
         }
-      } else {
-        //feedback(httpResponse.message);
       }
+    }
   };
   var token = localStorage.getItem("token");
   var myEmail = localStorage.getItem("email");
